@@ -1,0 +1,118 @@
+{% extends 'solar_energy/Barra de Navegacion.html' %}
+
+{% load static %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block title %}
+    Calculadora
+{% endblock %}
+
+{% block content %}
+<video controls>
+    <source src="{% static 'solar_energy/Videos/Video_radiación1.mp4' %}">
+    <p>Tu navegador no admite la etiqueta de video</p>
+</video>
+
+<form action="/calculadora_amortizacion" method="post">{% csrf_token %}
+    <ul>
+        <li>
+            <h4><strong>Localización de la instalación.</strong></h4>
+        </li>
+
+        <!--Campo de texto para indicar un nombre para su instalación-->
+        <li> 
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name_instalacion"/>
+        </li>
+
+        <!--#Campo numérico Altitud-->
+        <li>
+            <label for='Altitud'>Altitud:</label>
+            <input type='number' id='Altitud' name='altitud' step='any'/>
+        </li>
+
+        <!--#Campo numérico Longitud-->
+        <li>
+            <label for='Longitud'>Longitud:</label>
+            <input type='number' id='Longitud' name='longitud' step='any'/>
+        </li>
+
+        <!--Select box tecnología Fotovoltaica-->
+        <li>
+            <label for='Base_datos'>Base de datos de radiación solar:</label>
+            <select id="Base_datos" name="base_datos">
+                <option selected>PVGIS-SARAH2</option>
+                <option>PVGIS-SARAH</option>
+                <option>PVGIS-ERA5</option>
+            </select>
+        </li>
+        
+        <!--Select box tecnología Fotovoltaica-->
+        <li>
+            <label for='Tec_FV'>Tecnología FV:</label>
+            <select id="Tec_FV" name="tec_fv">
+                <option selected>Silicio cristalino</option>
+                <option>CIS</option>
+                <option>CdTE</option>
+                <option>Desconocido</option>
+            </select>
+        </li>
+
+        <li>
+            <h4><strong>Opciones de montaje fijo.</strong></h4>
+        </li>
+
+        <!--Select box posición de montaje-->
+        <li>
+            <label for='Pos_montaje'>Posicioón de montaje:</label>
+            <select id="Pos_montaje" name="pos_montaje">
+                <option selected>Posición libre</option>
+                <option>Integrado en el edificio</option>
+            </select>
+        </li>
+
+        <!--Input numérico para indicar la inclinación de la sobre la horizontal-->
+        <li>
+            <label for='Inclinacion'>Inclinación [º]:</label>
+            <input type='number' id='Inclinacion' name='inclinacion' step='any' min='0' />
+        </li>
+
+        <!--Input numérico para indicar el giro de la placa respecto del Norte siendo este 0 y el Sur 180-->
+        <li>
+            <label for='Azimut'>Azimut [º]:</label>
+            <input type='number' id='Azimut' name='azimut' step='any' min='0' />
+        </li>
+
+        <li>
+            <h4><strong>Coste de la instalación.</strong></h4>
+        </li>
+
+        <!--Coste sistema FV-->
+        <li>
+            <label for='Coste_Sistema'>Coste Sistema [€]:</label>
+            <input type='number' id='Coste_Sistema' name='coste_sistema' step='0.01' min='0' />
+        </li>
+
+        <!--Interés del prestamo-->
+        <li>
+            <label for='Interes'>Interés[%/año%]:</label>
+            <input type='number' id='Interes' name='interes' step='0.01' min='0' />
+        </li>
+
+
+        <!--Botón de envío de formulario-->
+        <li class="button">
+            <button type="submit">Envíe su mensaje</button>
+        </li>
+
+    </ul>
+
+
+    
+    
+</form>
+
+{% endblock %}

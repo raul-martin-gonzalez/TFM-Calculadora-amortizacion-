@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'solar_energy/Styles/Estilo Barra Navegación.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <!--<script scr="JavaScript\Barra de Navegación.js"></script>-->
+
+    {% block style %}
+
+    {% endblock %}
+
+    <title>
+        {% block title %}
+        
+        {% endblock %}
+    </title>
+</head>
+<body>
+
+    <header> 
+        <div class="logo">
+            <img src="{% static 'solar_energy/Logos/Logo 1.png' %}" alt="Logo empresa">
+        </div>
+
+        <nav id="menu">
+            <ul>
+                <li><a href="{% url 'Inicio' %}"><i data-feather="home"></i>Inicio</a></li>
+                <li><a href="{% url 'Precio_luz' %}"><i data-feather="dollar-sign"></i>Precio de la luz</a></li>
+                <li><a href="{% url 'Energia_fotovoltaica' %}"><i data-feather="sun"></i>Energía solar fotovoltaica</a></li>
+                <li><a href="{% url 'Calculadora' %}">Calculadora de amortización</a></li>
+                <li><a href="{% url 'Conceptos_teoricos' %}">Conceptos teóricos</a></li>
+            </ul>
+        </nav>
+
+        <!-- Toggle button -->
+    <div class="menu-toggle">   <!-- onclick="toggleMenu()">-->
+        <i class="fa fa-bars"></i>
+    </div>
+    </header>
+
+    
+    {% block content %}
+
+    {% endblock %}
+    
+
+    <script src="{% static 'solar_energy/JavaScript/Barra de Navegación.js' %}"></script>
+
+</body>
+
+
+</html>
