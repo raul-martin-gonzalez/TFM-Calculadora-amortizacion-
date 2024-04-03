@@ -3,22 +3,26 @@
 
 FROM python:3.11  
 # setup environment variable
- 
+
+ENV PYTHONUNBUFFERED=1
+
 # where your code lives  
 WORKDIR /app
 
 # install dependencies. Actualiza la versión de pip que se utilizará para instalar las dependencias.
-RUN pip install --upgrade pip  
+RUN pip install --upgrade pip
 
-# copy whole project to your docker home directory. 
-COPY . /app/  
+COPY ./requirements.txt ./
 
 # run this command to install all dependencies  
-RUN pip install -r requirements.txt  
+RUN pip install -r requirements.txt 
+
+# copy whole project to your docker home directory. 
+COPY ./ ./ 
 
 # port where the Django app runs. 
 # Esta instrucción es para indicar que la aplicación está corriedo en el puerto 8000
-EXPOSE 8000  
+# Expose
 
 # start server  
-CMD ["python", "manage.py", "runserver"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
