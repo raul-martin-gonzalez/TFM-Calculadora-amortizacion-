@@ -1,8 +1,26 @@
 steps:
   - id: "build image"
     name: "gcr.io/cloud-builders/docker"
+    entrypoint: docker
     args: ["build", "-t", "europe-west1-docker.pkg.dev/$PROJECT_ID/modelo/app-django:latest", "-f", "Dockerfile", "."]
 
   - id: "push image"
     name: "gcr.io/cloud-builders/docker"
+    entrypoint: docker
     args: ["push", "europe-west1-docker.pkg.dev/$PROJECT_ID/modelo/app-django", "--all-tags"]
+
+
+  - id: "Deploy to cloud Run"
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: gcloud
+    args: [
+      "run", 
+      "deploy", 
+      "app-django", 
+      "--image=europe-west1-docker.pkg.dev/$PROJECT_ID/modelo/app-django:latest",
+      "--allow-unauthenticated",
+      "--port=8080",
+      "--region=europe-west1",
+      "--project=$PROJECT_ID",
+    ]
+
