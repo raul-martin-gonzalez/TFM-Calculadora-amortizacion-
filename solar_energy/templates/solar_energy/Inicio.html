@@ -2,16 +2,47 @@
 
 {% load static %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'solar_energy/Styles/Estilo_Ventana_inicio.css' %}">
+{% endblock %}
+
 {% block title %}
     Inicio
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <p>
-        La energía solar es una fuente de energía renovable, obtenida mediante el aprovechamiento de la radiación procendente del sol.
-        Dependiendo de la tecnología usada podemos transformar la energía solar en energía eléctrica o térmica.
-    </p>
+    <div class="wrap">
+        <div class="wrap-texto">
+            <h1>
+                SOLAR ENERGY SAVING
+            </h1>
+        </div>
+
+        <div class="Definicion">
+
+            <h2><strong>¿Qué és?</strong></h2>
+
+            <p> 
+            Es una aplicación web destinada a ayudar a todas las personas 
+            que desean instalar placas fotovoltaicas en su vivienda.
+            </p>
+
+            <p>
+            Para ello, a través de las distintas secciones de la aplicación se aporta
+            información mediante tablas, texto, imágenes, gráficos y vídeos sobre:
+            </p>
+
+            <ul>
+            <li>Tipos de placas fotovoltaicas y sus características.</li>
+            <li>Precio de la luz.</li>
+            <li>Información histórica sobre la radiación en España.</li>
+            <li>Cálculo de la amortización de una instalación.</li>
+            </ul>
+
+        </div>  
+
+    </div>
 </div>
 {% endblock %}
 
