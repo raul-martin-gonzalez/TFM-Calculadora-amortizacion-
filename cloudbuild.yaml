@@ -5,4 +5,4 @@ steps:
 
   - id: "push image"
     name: "gcr.io/cloud-builders/docker"
-    args: ["push", "europe-west1-docker.pkg.dev/$PROJECT_ID/modelo/app-django", "--all--tags"]
+    args: ["push", "europe-west1-docker.pkg.dev/$PROJECT_ID/modelo/app-django", "--all-tags"]
