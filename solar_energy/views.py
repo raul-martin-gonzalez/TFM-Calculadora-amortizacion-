@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import HttpRequest
+import pandas as pd
 
 # Create your views here.
 def inicio(request):
@@ -18,14 +19,22 @@ def calculadora_amortizacion(request):
         # name = request.POST['name_instalacion']
         # altitud = request.POST['altitud']
         # longitud = request.POST['longitud']
+        datos_consumo = request.FILES['file']
+        print(type(datos_consumo))
+        df = pd.read_csv(datos_consumo, header=0, sep=';', encoding='utf-8')
+        df=df.rename(columns={'FECHA-HORA':'FECHA_HORA', 'CONSUMO Wh':'CONSUMO_Wh'})
+        print(df.columns)
+        datos = df[0:20].to_dict(orient='records')
+        datos_json = df[0:20].to_json(orient='records')
         dic_var = {
             'name': request.POST['name_instalacion'],
             'altitud': request.POST['altitud'],
-            'longitud' : request.POST['longitud']
+            'longitud': request.POST['longitud'],
+            'dato_django': "Dato obtenido a través de django"
         }
         #print(type(altitud))
         #return HttpResponse(altitud)
-        return resultados(request, dic_var)
+        return resultados(request, {'contexto1': dic_var, 'contexto2': datos, "contexto3": datos_json})
 
     return render(request, "solar_energy/Calculadora.html") 
 

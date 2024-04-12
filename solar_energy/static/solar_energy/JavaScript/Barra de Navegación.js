@@ -7,7 +7,7 @@ let menu = document.getElementById('menu');
 
 menuToggle.addEventListener('click', e=>{
     menu.classList.toggle('show');
-
+    document.getElementById("content").classList.toggle("active");
     if(menu.classList.contains('show')){
         menuToggleIcon.setAttribute('class', 'fa fa-times');
     }

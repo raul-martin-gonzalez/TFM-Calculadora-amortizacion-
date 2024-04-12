@@ -16,7 +16,7 @@
     <p>Tu navegador no admite la etiqueta de video</p>
 </video>
 
-<form action="/calculadora_amortizacion" method="post">{% csrf_token %}
+<form action="/calculadora_amortizacion" method="post" enctype="multipart/form-data">{% csrf_token %}
     <ul>
         <li>
             <h4><strong>Localización de la instalación.</strong></h4>
@@ -102,16 +102,22 @@
             <input type='number' id='Interes' name='interes' step='0.01' min='0' />
         </li>
 
+        <li>
+            <h4>Datos de consumo de su hogar o industria</h4>
+        </li>
+
+        <li>
+            <label for="file">Suba el archivo de consumo en formato csv  </label>
+            <input type="file" id="file" name="file">
+        </li>
 
         <!--Botón de envío de formulario-->
         <li class="button">
             <button type="submit">Envíe su mensaje</button>
         </li>
 
-    </ul>
 
-
-    
+    </ul> 
     
 </form>
 

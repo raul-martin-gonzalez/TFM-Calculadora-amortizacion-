@@ -3,7 +3,7 @@
 {% load static %}
     
 {% block style %}
-
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 {% endblock %}
 
 {% block title %}
@@ -12,6 +12,29 @@
 
 {% block content %}
     <p>En esta página mostrare los resultados de la amortización</p>
-    <p>Las coordenadas para la instalacción {{name}} son: {{altitud}} , {{longitud}}</p>
+    <p>Las coordenadas para la instalacción {{contexto1.name}} son: {{contexto1.altitud}} , {{contexto1.longitud}}</p>
+    <div id="dato-texto" data-dato="{{contexto1.dato_django}}"></div>
+    <div id="Datos_consumo"  data-consumo="{{contexto3}}"></div>
+
+    <table>
+        <tr>
+            <th>CUPS</th>
+            <th>FECHA-HORA</th>
+            <th>CONSUMO Wh</th>
+        </tr>
+        
+        {% for linea in contexto2 %}
+        <tr>
+            <td>{{linea.CUPS}}</td>
+            <td>{{linea.FECHA_HORA}}</td>
+            <td>{{linea.CONSUMO_Wh}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div id='Chart_consumo' class='chart-container'></div>
     
+    <script src="{% static 'solar_energy/JavaScript/prueba.js' %}"></script>
+
 {% endblock %}
+

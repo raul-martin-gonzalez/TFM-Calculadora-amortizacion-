@@ -29,11 +29,17 @@
             <img src="{% static 'solar_energy/Logos/Logo 1.png' %}" alt="Logo empresa">
         </div>
 
+        <div class="nombre">
+            <h1>
+                SOLAR ENERGY SAVING
+            </h1>
+        </div>
+
         <nav id="menu">
             <ul>
                 <li><a href="{% url 'Inicio' %}"><i data-feather="home"></i>Inicio</a></li>
                 <li><a href="{% url 'Energia_fotovoltaica' %}"><i data-feather="sun"></i>Energía solar fotovoltaica</a></li>
-                <li><a href="{% url 'Precio_luz' %}"><i data-feather="dollar-sign"></i>Precio de la luz</a></li>
+                <!--<li><a href="{% url 'Precio_luz' %}"><i data-feather="dollar-sign"></i>Precio de la luz</a></li>-->
                 <li><a href="{% url 'Calculadora' %}">Calculadora de amortización</a></li>
                 <!--<li><a href="{% url 'Conceptos_teoricos' %}">Conceptos teóricos</a></li>-->
             </ul>

@@ -11,79 +11,34 @@
 {% endblock %}
 
 {% block content %}
-    <p>Los paneles solares fotovoltaicos más usados son los paneles de silicio, estos puden ser:</p>
-    <ul>
-        <li>Paneles de silicio monocristalino.</li>
-        <li>Paneles de silicio policristalino.</li>
-        <li>Paneles de silicio amorfo (más conocidos como Thin Film).</li>
-    </ul>
-    <p>
-        Además de los paneles de silicio, existen otros menos extendidos que usan compuestos orgánicos o arseniuro de galio.  
-    </p>
+    <div class='Contenido-fotovoltaica'>
+        
+        <p>
+            La energía solar fotovoltaica es una fuente de energía renovable,
+            inagotable y limpia que transforma la radiación solar en electricidad,
+            esta transformación se realiza mediante la combinación del efecto fotoeléctrico 
+            y del efecto fotovoltaico. El efecto fotoeléctrico consiste
+            en la emisión de electrones por un material cuando se ilumina con radiación electromagnética
+            (en este caso la radiación solar), mientras que el efecto fotovoltaico consiste en
+            la excitación de esos electrones en un material semiconductor al ser iluminados por la radiación
+            electromagnética generando una pequeña diferencia de potencial. 
+        </p>
 
-    
-    <section>
-        <div class="container">
+        <p> 
+            El dispositivo formado por el material semiconductor se denomina celda o célula fotovoltaica, la unión de varios
+            de estos dispositvos en serie permite obtener diferencias de potencial mayores. Las celdas pueden estar fabricadas
+            de silicio monocristalino, policristalino o amorfo, o bien de otros materiales semiconductores de capa fina. 
+        </p>
 
+        <section id="content">
             <div class="carousel">
                 <input type="radio" name="slides" checked="checked" id="slide-1">
                 <input type="radio" name="slides" id="slide-2">
                 <input type="radio" name="slides" id="slide-3">
                 <input type="radio" name="slides" id="slide-4">
-
-
+    
+    
                 <ul class="carousel__slides">
-                        
-                    <li class="card">
-                        <div class="card-container">
-                                <div class="card-face front-face">
-                                    <img src="{%static 'solar_energy/Imagenes/Comparación paneles fotovoltaicos.jpg' %}" alt=""/>
-                                </div>
-                                <div class="card-face back-face">
-                                    <div class="container-about">
-                                        <h2>Propiedades</h2>
-                                        <p>
-                                            Se realiza una comparación entre los 3 tipos de panales de silicio.
-                                            Como puede ver en la imagen se muestran el panel monocritalino, policristalino y capa fina.
-                                        </p>
-                                    </div>
-                                </div>
-                        </div>
-                    </li> 
-
-                    <li class="card">
-                        <div class="card-container">
-                                <div class="card-face front-face">
-                                    <img src="{%static 'solar_energy/Imagenes/panel-solar-monocristalino.jpg' %}" alt=""/>
-                                </div>
-                                <div class="card-face back-face">
-                                    <div class="container-about">
-                                        <h2>Propiedades</h2>
-                                        <p>
-                                            Panel monocristalino bajo precio gran rendimiento.
-                                        </p>
-                                    </div>
-                                </div>
-                        </div>
-                    </li>
-
-                    <li class="card">
-                        <div class="card-container">
-                                <div class="card-face front-face">
-                                    <img src="{%static 'solar_energy/Imagenes/panel-solar-policristalino.jpg' %}" alt=""/>
-                                </div>
-                                <div class="card-face back-face">
-                                    <div class="container-about">
-                                        <h2>Propiedades</h2>
-                                        <p>
-                                            Panel policristalino bajo precio gran rendimiento.
-                                        </p>
-                                    </div>
-                                </div>
-                        </div>
-                    </li>
-
-
                     <li class="card">
                         <div class="card-container">
                                 <div class="card-face front-face">
@@ -100,36 +55,34 @@
                                 </div>
                         </div>
                     </li> 
-                </ul>
 
-                <ul class="carousel__thumbnails">
-                    <li>
-                        <label for="slide-1"><img src="{% static 'solar_energy/Imagenes/Comparación paneles fotovoltaicos.jpg' %}" alt=""></label>
-                    </li>
-                    <li>
-                        <label for="slide-2"><img src="{% static 'solar_energy/Imagenes/panel-solar-monocristalino.jpg' %}" alt=""></label>
-                    </li>
-                    <li>
-                        <label for="slide-3"><img src="{% static 'solar_energy/Imagenes/panel-solar-policristalino.jpg' %}" alt=""></label>
-                    </li>
-                    <li>
-                        <label for="slide-4"><img src="{% static 'solar_energy/Imagenes/panel-solar-amorfo.jpg' %}" alt=""></label>
-                    </li>
+
                 </ul>
                 
+                <ul class="carousel__thumbnails">
+                    <li>
+                        <label for="slide-1"><img src="{% static 'solar_energy/Imagenes/panel-solar-amorfo.jpg' %}" alt=""></label>
+                    </li>
+               
+                </ul>
+
             </div>
-        </div>
-    </section>
+        </section>
 
+        <h2>Tipos de instalaciones fotovoltaicas.</h2>
+        <p>
+        Existen dos tipos de instalaciones fotovoltaicas: las que están conectadas a la red y las que no. Nos centraremos
+        en las primeras, dentro de estas existen, a su vez, otros dos clases:
+        </p>
+        <ul>
+            <li>Centrales fotovoltaicas: son aquellas donde toda la energía producida se vierte a la red eléctrica.</li>
+            <li>Insatalaciones de autoconsumo: son aquellas donde la electricidad producida es consumida por el propio productor 
+                (pot ejemplo, una vivienda) y en caso de no consumir toda, la parte no consumida se vierte a la red. Al mismo tiempo,
+                el productor toma la energía que necesesita para cubrir su demanda cuando la instalación no le suministra suficiente.
+            </li>
+        </ul>
+    
+    </div>
 
-
-
-    <p>
-        La energía solar es una fuente de energía renovable, obtenida mediante el aprovechamiento de la radiación procendente del sol.
-        Dependiendo de la tecnología usada podemos transformar la energía solar en energía eléctrica o térmica.
-    </p>
-
-
- 
     
 {% endblock %}
