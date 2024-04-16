@@ -4,6 +4,9 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'solar_energy/Styles/Estilo_Ventana_inicio.css' %}">
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet" />
 {% endblock %}
 
 {% block title %}
@@ -12,10 +15,15 @@
 
 {% block content %}
 <div class="container">
-    <div class="Definicion">
-        <h2> 
-        SOLAR ENERGY SAVING es una aplicación web que busca ayudar a todas aquellas personas 
-        que se están plantenado instalar placas fotovoltaicas, ya sea en sus hogares o industrias.
+    <main class="Definicion-star-wars">
+        <h1> 
+        SOLAR ENERGY SAVING
+        </h1>
+
+        <h2>
+        Es una aplicación web que busca ayudar a todas aquellas personas 
+        que se están plantenado instalar placas fotovoltaicas de autoconsumo, 
+        ya sea en sus hogares o industrias.
         </h2>
 
         <p>
@@ -26,10 +34,9 @@
         al compararla con el consumo eléctrico del usuario del último año. Por otro lado, conocido el coste de la instalación 
         se ofrece una aproximación de la amortización de la instalación, calculada a partir del coste de la instalación
         y del precio establecido por el operador del sistema electrico Español (Red Eléctrica).
-        
         </p>
         
-    </div>  
+    </main>  
 
     
 </div>

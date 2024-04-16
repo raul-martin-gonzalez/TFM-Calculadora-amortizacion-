@@ -1,0 +1,90 @@
+var data = [30, 86, 168, 281, 303, 365];
+var mensajeDiv = document.getElementById("Bar_Chart_consumo");
+
+
+// Define la función para crear el gráfico
+function createChart() {
+
+  // Selecciona el contenedor
+  var container = d3.select("#Bar_Chart_consumo");
+
+  // Obtiene el tamaño del contenedor
+  var containerWidth = container.node().getBoundingClientRect().width;
+  var containerHeight = container.node().getBoundingClientRect().height;
+
+  //Define margenes y dimensiones del gráfico
+  var margin = {top: 0.1 * containerHeight, right: 0.04 * containerWidth, bottom: 0.2* containerHeight, left: 0.14 * containerWidth};
+  var width = containerWidth - margin.left - margin.right;
+  var height = containerHeight - margin.top - margin.bottom;
+  mensajeDiv.textContent = containerWidth
+  document.write(data)
+  document.write(width)
+    
+  // Limpia el contenedor antes de crear el gráfico
+  //container.selectAll("svg").remove();
+
+  //Crea el elemento SVG
+  var svg = container.append("svg")
+      .attr("width", containerWidth)
+      .attr("height", containerHeight);
+  
+  // Crea un grupo (g) para el gráfico con el margen aplicado
+  var g = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  
+  // Escala para el eje X (barras)
+  var x = d3.scaleBand()
+    .domain(d3.range(data.length))
+    .range([0, width])
+    .padding(0.1);
+  
+  // Escala para el eje Y (altura de las barras)
+  var y = d3.scaleLinear()
+    .domain([0, d3.max(data)])
+    .range([height, 0]);
+  
+  // Crea las barras
+  g.selectAll(".bar")
+    .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d, i) { return x(i); })
+      .attr("y", function(d) { return y(d); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d); });
+  
+  // Agrega el eje X
+  g.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+  
+  // Agrega el eje Y
+  g.append("g")
+    .attr("class", "axis")
+    .call(d3.axisLeft(y));
+
+
+  // Etiqueta del eje Y
+  g.append("text")
+    .attr("class", "y-label")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", -margin.left*0.5)
+    .text("Consumo (kWh)");
+
+  // Etiqueta del eje X
+  g.append("text")
+    .attr("class", "x-label")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom*0.5)
+    .text("Índice");
+}
+
+// Llama a la función para crear el gráfico al cargar la página
+createChart();
+
+// Agrega un controlador de eventos para el cambio de tamaño de ventana
+window.addEventListener("resize", createChart);

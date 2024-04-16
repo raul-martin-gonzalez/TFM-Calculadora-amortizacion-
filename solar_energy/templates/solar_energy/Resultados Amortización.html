@@ -4,6 +4,7 @@
     
 {% block style %}
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="{% static 'solar_energy/Styles/Estilo_Ventana_resultados.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -11,11 +12,13 @@
 {% endblock %}
 
 {% block content %}
-    <p>En esta página mostrare los resultados de la amortización</p>
-    <p>Las coordenadas para la instalacción {{contexto1.name}} son: {{contexto1.altitud}} , {{contexto1.longitud}}</p>
+<div class='informe-resultados'>
+    <h2>Informe Amortización Placas Solares</h2>
+    <p>Nombre de la instalación: {{contexto1.name}}</p>
+    <p>Coordenadas: {{contexto1.altitud}} , {{contexto1.longitud}}</p>
     <div id="dato-texto" data-dato="{{contexto1.dato_django}}"></div>
-    <div id="Datos_consumo"  data-consumo="{{contexto3}}"></div>
-
+    
+    
     <table>
         <tr>
             <th>CUPS</th>
@@ -32,9 +35,13 @@
         {% endfor %}
     </table>
 
+    <div id="Datos_consumo"  data-consumo="{{contexto3}}"></div>
     <div id='Chart_consumo' class='chart-container'></div>
-    
-    <script src="{% static 'solar_energy/JavaScript/prueba.js' %}"></script>
+    <div id='Bar_Chart_consumo' class='bar-chart-container'></div>
+
+</div>  
+    <script src="{% static 'solar_energy/JavaScript/Gráfico de consumo y producción.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico de barras consumo.js' %}"></script>
 
 {% endblock %}
 

@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class='Contenido-fotovoltaica'>
+    <div id="content" class='Contenido-fotovoltaica' >
         
         <p>
             La energía solar fotovoltaica es una fuente de energía renovable,
@@ -30,44 +30,57 @@
             de silicio monocristalino, policristalino o amorfo, o bien de otros materiales semiconductores de capa fina. 
         </p>
 
-        <section id="content">
-            <div class="carousel">
-                <input type="radio" name="slides" checked="checked" id="slide-1">
-                <input type="radio" name="slides" id="slide-2">
-                <input type="radio" name="slides" id="slide-3">
-                <input type="radio" name="slides" id="slide-4">
-    
-    
-                <ul class="carousel__slides">
-                    <li class="card">
-                        <div class="card-container">
-                                <div class="card-face front-face">
-                                    <img src="{% static 'solar_energy/Imagenes/panel-solar-amorfo.jpg' %}" alt=""/>
-                                </div>
-                                <div class="card-face back-face">
-                                    <div class="container-about">
-                                        <h2>Propiedades</h2>
-                                        <p>
-                                            Se realiza una comparación entre los 3 tipos de panales de silicio.
-                                            Como puede ver en la imagen se muestran el panel monocritalino, policristalino y capa fina.
-                                        </p>
-                                    </div>
-                                </div>
-                        </div>
-                    </li> 
+        <div class="table-container">
+            <table>
+                <tr> 
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td class="imagen"><img src="{% static 'solar_energy/Imagenes/panel-solar-monocristalino.jpg' %}"></td>
+                    <td class="nombre-table">Silicio Monocristalino</td>
+                    <td class="descripcion">Se obtienen a partir de un único cristal de silicio productor
+                        y alcanzan la máxima eficiencia, entre un 18% y un 20% de media.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="imagen"><img src="{% static 'solar_energy/Imagenes/panel-solar-policristalino.jpg' %}"></td>
+                    <td class="nombre-table">Silicio Policristalino</td>
+                    <td class="descripcion">Se elaboran e nbloque a partir de varios cristales, por lo que 
+                        resultan más baratas y poseen una eficiencia media de entre 16% y el 17.5%.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="imagen"><img src="{% static 'solar_energy/Imagenes/panel-solar-amorfo.jpg' %}"></td>
+                    <td class="nombre-table">Silicio Amorfo</td>
+                    <td class="descripcion">Presentan una red cristalina desordenada, lo que conlleva peores prestaciones
+                        con una eficacia media de entre un 8% y un 9%. Sin embargo, su 
+                        precio es menor
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="imagen"><img src="{% static 'solar_energy/Imagenes/panel-solar-amorfo.jpg' %}"></td>
+                    <td class="nombre-table">Tecnología CIS (cobre, indio y selenio)</td>
+                    <td class="descripcion">Presentan una red cristalina desordenada, lo que conlleva peores prestaciones
+                        con una eficacia media de entre un 8% y un 9%. Sin embargo, su 
+                        precio es menor
+                    </td>
+                </tr>
 
 
-                </ul>
+                <tr>
+                    <td class="imagen"><img src="{% static 'solar_energy/Imagenes/panel-solar-CdTe.jpg' %}"></td>
+                    <td class="nombre-table">Telururo de cadmio (CdTe)</td>
+                    <td class="descripcion">Presentan una red cristalina desordenada, lo que conlleva peores prestaciones
+                        con una eficacia media de entre un 8% y un 9%. Sin embargo, su 
+                        precio es menor
+                    </td>
+                </tr>
                 
-                <ul class="carousel__thumbnails">
-                    <li>
-                        <label for="slide-1"><img src="{% static 'solar_energy/Imagenes/panel-solar-amorfo.jpg' %}" alt=""></label>
-                    </li>
-               
-                </ul>
-
-            </div>
-        </section>
+            </table>
+        </div>
 
         <h2>Tipos de instalaciones fotovoltaicas.</h2>
         <p>

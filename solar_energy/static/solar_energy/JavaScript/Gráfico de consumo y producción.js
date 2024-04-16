@@ -28,6 +28,7 @@ for (var i = 0; i < datos_consumo.length; i++) {
   consumos.push(consumo);
 }
 
+
 // document.write(fechas);
 // document.write(consumos);
 
@@ -54,13 +55,34 @@ var line = d3.line()
     .x(function(d, i) { return xScale(new Date(fechas[i])); })
     .y(function(d) { return yScale(d); });
 
+
+
 // Crear el lienzo SVG
 var svg = d3.select("#Chart_consumo")
     .append("svg")
     .attr("width", svgWidth)
     .attr("height", svgHeight)
-  .append("g")
+    .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+// Cambiar el fondo a blanco
+svg.append("rect")
+    .attr("x", 0 - margin.left)
+    .attr("y", 0 - margin.top)
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("fill", "white");
+
+
+// Agregar una leyenda
+svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height + margin.top - 10)
+    .style("text-anchor", "middle")
+    .style("font-size", "14px")
+    .style("fill", "steelblue")
+    .text("Consumo de energía (Wh)");
 
 svg.append("text")
     .attr("x", (width / 2))
@@ -71,14 +93,6 @@ svg.append("text")
     .style("fill", "steelblue")
     .text("Consumo de Energía");
 
-// Agregar la línea al gráfico
-svg.append("path")
-    .datum(consumos)
-    .attr("class", "line")
-    .attr("d", line)
-    .attr("stroke-width", 5)
-    .attr("stroke", "steelblue");
-    
 
 // Eje X
 svg.append("g")
@@ -111,5 +125,15 @@ svg.append("text")
     .style("fill", "yellow")
     .text("Consumo (Wh)");
 
-svg.selectAll("path")
-    .style("stroke", "yellow"); // Cambia el color de las líneas de los ejes
+
+// Agregar la línea al gráfico
+svg.append("path")
+    .datum(consumos)
+    .attr("class", "line")
+    .attr("d", line)
+    .attr("fill", "none")
+    .style("stroke-width", 5)
+    .style("stroke", "steelblue");
+
+//svg.selectAll("path")
+  //  .style("stroke", "yellow"); // Cambia el color de las líneas de los ejes

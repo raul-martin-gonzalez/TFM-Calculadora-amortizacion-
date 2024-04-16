@@ -1,238 +1,67 @@
 .Contenido-fotovoltaica{
-    font-size: 1.5vw;
-    color: #f7f2f2ea;
-    text-align: justify;
-    width: 87vw;
-    margin: 4vh 4vw;
+  font-size: 1.5vw;
+  color: #f7f2f2ea;
+  text-align: justify;
+  width: 87vw;
+  margin: 4vh 4vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Contenido-fotovoltaica p{
-    margin-top: 4vh;
+  margin-top: 4vh;
 }
 
 .Contenido-fotovoltaica h2{
-    margin-top: 4vh;
+  margin-top: 4vh;
 }
 .Contenido-fotovoltaica ul{
-    margin-top: 4vh;
-    padding: 0 2vw;
-}
-
-.Contenido-fotovoltaica section {
-    margin: 4vh auto;
-    background: #f4f4f4;
-    padding: 2vh ;
-    width: 60vw;
-    height: 80vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  margin-top: 4vh;
+  padding: 0 2vw;
 }
 
 #content.active {
-    display: none;
+  display: none;
   }
 
-.carousel{
-    width: 80%;
-    border: solid #000000 10px;
-    padding: 0;
-    background: #f70505;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.table-container{
+  margin: 2vh;
+  background-color: rgb(236, 133, 7);
 }
 
-.carousel > input {
-    clip-path: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
+table {
+  width: 100%;
+  border-collapse: collapse; /* Combina los bordes de las celdas */
+  color: black
 }
 
-.carousel__slides {
-    position: relative;
-    z-index: 1;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    box-sizing: border-box;
-    display: flex;
-    background: green;
-    color: #000000;
-} 
-
-
-.card {
-    position: relative;
-    display: block;
-    flex: 1 0 100%;
-    overflow: hidden;
-    transition: all 300ms ease-out;
-    box-sizing: border-box;
-    white-space: normal;
-    width: 100%;
-    perspective: 1000px;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    border: solid #000000 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #df07b0;
+th, td {
+  border: 1px solid #0f0f0f; /* Define un borde para las celdas */
+  padding: 8px ; /* Añade espacio interno dentro de las celdas */
+  text-align: left; /* Alinea el texto a la izquierda */
 }
 
-.card-container {
-    position: relative;
-    width: 90%;
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
-    box-shadow: 0 4px 8px 0 rgba(237, 21, 21, 0.2);
-    border-radius: 10px;
-    background: #4107df;
-    
+th {
+  background-color: #f2f2f2; /* Define un color de fondo para las celdas de encabezado */
 }
 
-.card img {
-    width: 100%;
-    object-fit: contain;
-    border-radius: 10px; 
+.descripcion{
+  width: 50vw;
 }
 
-
-.card:hover .card-container{
-    transform: rotateY(180deg);
+.nombre-table{
+  max-width: 15vw;
 }
 
-.card-face{
-    width:  100%;
-    height: 100%;
-    position: relative;
-    top: 0; /* Alineación en la parte superior del contenedor */
-    left: 0;
-    backface-visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: column;
-    border-radius: 10px;
-    background: #fff;
+.imagen{
+  max-width: 35vw;
 }
 
-
-.container-about{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 0px;
-    margin: 0px;
-    padding: 0 1em;
-}
-
-.container-about h2{
-    margin: 0;
-    padding: 0;
-}
-
-.front-face{
-    transform: rotateY(0deg);
-    width: 100%;
-    height: 100%;
-}
-
-.back-face{
-    display: flex;
-    transform: rotateY(180deg);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-
-.carousel > input:nth-of-type(4):checked ~ .carousel__slides .card:first-of-type {
-    margin-left: -300%;
-}
-.carousel > input:nth-of-type(3):checked ~ .carousel__slides .card:first-of-type {
-    margin-left: -200%;
-}
-.carousel > input:nth-of-type(2):checked ~ .carousel__slides .card:first-of-type {
-    margin-left: -100%;
-}
-.carousel > input:nth-of-type(1):checked ~ .carousel__slides .card:first-of-type {
-    margin-left: 0%;
-}
-
-
-.carousel > input:nth-of-type(1):checked ~ .carousel__thumbnails li:nth-of-type(1) {
-    box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
-}
-.carousel > input:nth-of-type(2):checked ~ .carousel__thumbnails li:nth-of-type(2) {
-    box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
-}
-.carousel > input:nth-of-type(3):checked ~ .carousel__thumbnails li:nth-of-type(3) {
-    box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
-}
-.carousel > input:nth-of-type(4):checked ~ .carousel__thumbnails li:nth-of-type(4) {
-    box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
-}
-
-.carousel__thumbnails {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    margin: 0 -10px;
-}
-
-.card + .carousel__thumbnails {
-    margin-top: 1vh;
-}
-
-.carousel__thumbnails li {
-    flex: 1 1 auto;
-    max-width: calc((100% / 6) - 20px);
-    margin: 0 10px;
-    transition: all 300ms ease-in-out;
-}
-
-.carousel__thumbnails label {
-    display: block;
-    position: relative;
-}
-
-.carousel__thumbnails label:before {
-    display: block;
-    content: "";
-    width: 100%;
-    padding-top: 100%;
-}
-
-.carousel__thumbnails label > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-}
-.carousel__thumbnails label:hover, .carousel__thumbnails label:focus {
-    cursor: pointer;
-}
-
-.carousel__thumbnails label:hover img, .carousel__thumbnails label:focus img {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.25);
-    transition: all 300ms ease-in-out;
-}
-
-.carousel__thumbnails img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.table-container table .imagen img{
+  width: 100%;
+  height: auto;
+  border-radius: 2%;
+  display: block;
 }
