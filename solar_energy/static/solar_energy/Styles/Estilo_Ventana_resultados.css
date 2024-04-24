@@ -7,6 +7,12 @@
     align-items: center;
     margin: 2%;
     font-size: 2vw;
+    /* Establecer un gradiente de fondo
+    background: radial-gradient(circle at center, #ffdb58 5%, transparent 10%);
+    /* Tamaño del patrón de soles */
+    /*background-size: 50px 50px; /* Ajusta según el tamaño deseado */
+    /* Repetir el patrón en toda la página */
+    /*background-repeat: repeat; */
 }
 
 .informe-resultados p{
@@ -15,8 +21,8 @@
     padding: 1%;
 }
 
-
-.chart-container{
+/*https://www.youtube.com/watch?v=wuUSVEcK-kM*/
+/* .chart-container{
     
     width: 100%;
     height: 100%;    
@@ -29,4 +35,33 @@
     height: 60vh;
     background: rgba(241, 238, 238, 0.904);
     border: solid rgb(245, 70, 6) 10px;
+} */
+
+#Bar_Chart_consumo_produccion{
+    width: 80vh;
+    height: 60vh;
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(22, 245, 6) 10px;
+}
+
+
+#Bar_Chart_gasto_ahorro{
+    width: 80vh;
+    height: 60vh;
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(245, 70, 6) 10px;
+}
+
+.Chart_container_mes{
+    width: 80vh;
+    height: 60vh;
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(245, 70, 6) 10px;
+}
+
+#chart_gasto_ahorro_mes{
+    width: 80vh;
+    height: 60vh;
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(22, 245, 6) 10px;
 }

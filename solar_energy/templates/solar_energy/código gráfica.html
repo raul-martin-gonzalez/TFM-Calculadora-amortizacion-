@@ -1,90 +1,420 @@
-var data = [30, 86, 168, 281, 303, 365];
-var mensajeDiv = document.getElementById("Bar_Chart_consumo");
+contenedor_datos=document.getElementById('Datos_consumo_compacto')
 
+datos = contenedor_datos.getAttribute('data-consumo')
 
-// Define la función para crear el gráfico
-function createChart() {
+console.log(datos)
 
-  // Selecciona el contenedor
-  var container = d3.select("#Bar_Chart_consumo");
+var datos_consumo = JSON.parse(datos);
+/*document.write(datos_consumo);*/
 
-  // Obtiene el tamaño del contenedor
-  var containerWidth = container.node().getBoundingClientRect().width;
-  var containerHeight = container.node().getBoundingClientRect().height;
+var meses = [];
+var consumos = [];
+var produccion = [];
 
-  //Define margenes y dimensiones del gráfico
-  var margin = {top: 0.1 * containerHeight, right: 0.04 * containerWidth, bottom: 0.2* containerHeight, left: 0.14 * containerWidth};
-  var width = containerWidth - margin.left - margin.right;
-  var height = containerHeight - margin.top - margin.bottom;
-  mensajeDiv.textContent = containerWidth
-  document.write(data)
-  document.write(width)
-    
-  // Limpia el contenedor antes de crear el gráfico
-  //container.selectAll("svg").remove();
+for (var i = 0; i < datos_consumo.length; i++) {
+  var mes = datos_consumo[i].Mes;
+  var consumo = datos_consumo[i].CONSUMO_Wh;
+  var produc = datos_consumo[i].Produccion;
 
-  //Crea el elemento SVG
-  var svg = container.append("svg")
-      .attr("width", containerWidth)
-      .attr("height", containerHeight);
-  
-  // Crea un grupo (g) para el gráfico con el margen aplicado
-  var g = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  
-  // Escala para el eje X (barras)
-  var x = d3.scaleBand()
-    .domain(d3.range(data.length))
-    .range([0, width])
-    .padding(0.1);
-  
-  // Escala para el eje Y (altura de las barras)
-  var y = d3.scaleLinear()
-    .domain([0, d3.max(data)])
-    .range([height, 0]);
-  
-  // Crea las barras
-  g.selectAll(".bar")
-    .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d, i) { return x(i); })
-      .attr("y", function(d) { return y(d); })
-      .attr("width", x.bandwidth())
-      .attr("height", function(d) { return height - y(d); });
-  
-  // Agrega el eje X
-  g.append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
-  
-  // Agrega el eje Y
-  g.append("g")
-    .attr("class", "axis")
-    .call(d3.axisLeft(y));
-
-
-  // Etiqueta del eje Y
-  g.append("text")
-    .attr("class", "y-label")
-    .attr("text-anchor", "middle")
-    .attr("transform", "rotate(-90)")
-    .attr("x", -height / 2)
-    .attr("y", -margin.left*0.5)
-    .text("Consumo (kWh)");
-
-  // Etiqueta del eje X
-  g.append("text")
-    .attr("class", "x-label")
-    .attr("text-anchor", "middle")
-    .attr("x", width / 2)
-    .attr("y", height + margin.bottom*0.5)
-    .text("Índice");
+  meses.push(mes);
+  consumos.push(consumo);
+  produccion.push(produc);
 }
 
-// Llama a la función para crear el gráfico al cargar la página
-createChart();
+console.log(meses)
+console.log(consumos)
 
-// Agrega un controlador de eventos para el cambio de tamaño de ventana
-window.addEventListener("resize", createChart);
+//var produccion = [210000, 230000, 250000, 270000, 290000, 310000, 330000, 350000, 370000, 390000, 210000, 230000];
+
+
+contenedor = document.getElementById('Bar_Chart_consumo_produccion')
+
+
+function myResponsiveComponent1(container, props){
+  //console.log(props.width);
+  //console.log(props.height);
+  // Arreglo de meses
+  var etiqueta_meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+  //Define margenes y dimensiones del gráfico
+  var margin = {top: 0.1 * props.height, right: 0.04 * props.width, bottom: 0.2* props.height, left: 0.14 * props.width};
+  var width = props.width - margin.left - margin.right;
+  var height = props.height - margin.top - margin.bottom;
+  // console.log(width);
+  // console.log(height);
+
+  //contenedor.textContent = props.height;
+  let svg = container.selectAll('svg').data([null]);
+  svg = svg.enter().append('svg')
+    .merge(svg)
+      .attr('width', props.width)
+      .attr('height', props.height);
+
+  const rect = svg.selectAll('rect').data([null]);
+  rect
+      .enter().append('rect')
+      .attr('rx', 30)
+    .merge(rect)
+      .attr("fill", "white")
+      .attr('width', props.width)
+      .attr('height', props.height);
+  
+  // Crea un grupo (g) para el gráfico con el margen aplicado
+  let g = svg.selectAll('g').data([null]);
+  g = g.enter().append("g")
+    .merge(g)
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  
+  // Título del gráfico
+  let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
+  titulo = titulo.enter().append("text")
+      .attr("class", "chart-title")
+      .text("Consumo vs. Producción") // Título del gráfico
+    .merge(titulo)
+      .attr("x", (props.width - margin.left - margin.right) / 2)
+      .attr("y", margin.top / 2)
+      .attr("text-anchor", "middle")
+      .style("font-size", "5vh");
+      
+  // Etiqueta del eje X
+  let etiquetax = g.selectAll('.x-axis-label').data([null]);
+  etiquetax = etiquetax.enter().append("text")
+      .attr("class", "x-axis-label")
+      .text("Meses") // Etiqueta del eje X
+    .merge(etiquetax)
+      .attr("x", (props.width - margin.left - margin.right) / 2)
+      .attr("y", props.height - margin.bottom)
+      .attr("text-anchor", "middle")
+      .style("font-size", "3vh");
+      
+    
+  // Etiqueta del eje Y
+  let etiquetay = g.selectAll('.y-axis-label').data([null]); 
+  etiquetay = etiquetay.enter().append("text")
+      .attr("class", "y-axis-label")
+      .text("Energía (Wh)") // Etiqueta del eje Y
+    .merge(etiquetay)
+      .attr("transform", "rotate(-90)")
+      .attr("x", - (props.height - margin.top - margin.bottom) / 2)
+      .attr("y", -(margin.left / 2))
+      .attr("dy", "-1.5vh")
+      .attr("text-anchor", "middle")
+      .style("font-size", "3vh");
+    
+    
+  //console.log(data)
+
+   // Escala para el eje X (barras)
+  const xScale = d3.scaleBand()
+    .domain(d3.range(meses.length))
+    .range([0, width])
+    .padding(0.1);
+  const xAxis = d3.axisBottom(xScale);
+  let xAxisG = g.selectAll('.x-axis1').data([null]);
+    xAxisG = xAxisG.enter().append('g')
+      .attr('class', 'x-axis1')
+    .merge(xAxisG)
+      .attr('transform', `translate(0, ${height})`);
+      xAxisG.call(xAxis);
+
+
+  // Escala para el eje Y y Agrega el eje Y (altura de las barras)
+  const yScale = d3.scaleLinear()
+    .domain([0, d3.max(consumos)*1.2])
+    .range([height, 0]);
+  const yAxis = d3.axisLeft(yScale);
+  let yAxisG = g.selectAll('.y-axis1').data([null]);
+    yAxisG = yAxisG.enter().append('g')
+      .attr('class', 'y-axis1')
+    .merge(yAxisG);
+      yAxisG.call(yAxis);
+
+
+    // Crea las barras
+  let grafico = g.selectAll('.bar1').data(consumos);
+    grafico = grafico.enter().append("rect")
+        .attr("class", "bar1")
+      .merge(grafico)
+        .attr("x", function(d, i) { return xScale(i); })
+        .attr("y", function(d) { return yScale(d); })
+        .attr("width", xScale.bandwidth()/2)
+        .attr("height", function(d) { return height - yScale(d); })
+        .style("fill", "red");
+
+  let grafico2 = g.selectAll('.bar2').data(produccion);
+  grafico2 = grafico2.enter().append("rect")
+      .attr("class", "bar2")
+    .merge(grafico2)
+      .attr("x", function(d, i) { return xScale(i) + xScale.bandwidth()/2; })
+      .attr("y", function(d) { return yScale(d); })
+      .attr("width", xScale.bandwidth()/2)
+      .attr("height", function(d) { return height - yScale(d); })
+      .style("fill", "blue");
+
+
+  // Agregar leyenda
+let legend = g.selectAll('.legend').data([null]); 
+legend = legend.enter().append("g")
+    .attr("class", "legend")
+  .merge(legend)
+    .attr("transform", "translate(" + (margin.left + 10) + "," + (margin.top + 10) + ")");
+
+// Datos de la leyenda
+const legendData = [
+{ label: "Consumo", color: "red" },
+{ label: "Producción", color: "blue" }
+];
+
+// Crear cuadrados de color y etiquetas de texto para la leyenda
+legend.selectAll("rect")
+.data(legendData)
+.enter().append("rect")
+.attr("x", 0)
+.attr("y", (d, i) => i * 20)
+.attr("width", 10)
+.attr("height", 10)
+.style("fill", d => d.color);
+
+legend.selectAll("text")
+.data(legendData)
+.enter().append("text")
+.attr("x", 15)
+.attr("y", (d, i) => i * 20 + 9)
+.text(d => d.label)
+.style("font-size", "12px")
+.attr("alignment-baseline", "middle");
+  
+
+};
+
+function render1(){
+  myResponsiveComponent1(d3.select("#Bar_Chart_consumo_produccion"), {
+    width: contenedor.clientWidth,
+    height: contenedor.clientHeight,
+  });
+};
+
+render1();
+
+window.addEventListener('resize', render1);
+
+
+  
+console.log(contenedor.clientWidth);
+console.log(contenedor.clientHeight);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+contenedor_grafica = document.getElementById('chart_consumo_produccion_mes');
+
+contenedor_datos = document.getElementById('Datos_consumo_produccion_mes');
+
+var datos_json = contenedor_datos.getAttribute('data-consumo');
+
+var datos_consumo = JSON.parse(datos_json)
+//console.log(datos_consumo);
+
+
+// var datos = [
+//     { mes: "01", valor: 'Mes de Enero fue seleccionado' },
+//     { mes: "02", valor: 'Mes de Febrero fue seleccionado' },
+//     { mes: "03", valor: 'Mes de Marzo fue seleccionado' },
+//     { mes: "04", valor: 'Mes de Abril fue seleccionado' },
+//     { mes: "05", valor: 'Mes de Mayo fue seleccionado' },
+//     { mes: "06", valor: 'Mes de Junio fue seleccionado' },
+//     { mes: "07", valor: 'Mes de Julio fue seleccionado' },
+//     { mes: "08", valor: 'Mes de Agosto fue seleccionado' },
+//     { mes: "09", valor: 'Mes de Septiembre fue seleccionado' },
+//     { mes: "10", valor: 'Mes de Octubre fue seleccionado' },
+//     { mes: "11", valor: 'Mes de Noviembre fue seleccionado' },
+//     { mes: "12", valor: 'Mes de Diciembre fue seleccionado' },
+// ];
+
+function filtrarDatosPorMes(mesSeleccionado) {
+    return datos_consumo.filter(function(d) {
+        return d.Mes === mesSeleccionado;
+    });
+}
+
+function grafico_consumo_produccion_mes(container, props) {
+    var mesSeleccionado = document.getElementById("consumo_produccion_mes").value;
+    var datosFiltrados = filtrarDatosPorMes(mesSeleccionado);
+
+    var fechas = [];
+    var consumos = [];
+    var produccion = [];
+
+    for (var i = 0; i < datosFiltrados.length; i++) {
+        var fechaHora = datosFiltrados[i].FECHA_HORA;
+        var consumo = datosFiltrados[i].CONSUMO_Wh;
+        var produc = datosFiltrados[i].Produccion;
+        
+        fechas.push(fechaHora);
+        consumos.push(consumo);
+        produccion.push(produc)
+      }
+
+    // console.log(fechas);
+    // console.log(consumos);
+
+    //contenedor_grafica.textContent = datosFiltrados[0].CONSUMO_Wh
+    
+    // var Fecha = ['1:00', '2:00', '3:00', '4:00' ,'5:00' ,'6:00' ,'7:00' ,'8:00', '9:00', '10:00']
+    // var consumo = [398, 1176, 959, 264, 212, 213, 213, 193, 239, 300]
+
+    //Margen y dimensiones del gráfico
+    var margin = {top: 0.1 * props.height, right: 0.04 * props.width, bottom: 0.2* props.height, left: 0.14 * props.width};
+    var width = props.width - margin.left - margin.right;
+    var height = props.height - margin.top - margin.bottom;
+    
+    // Eliminar gráfico anterior si existe
+    container.select("svg").remove();
+
+    // Crear SVG 
+    let svg = container.selectAll('svg').data([null]);
+    svg = svg.enter().append('svg')
+        .merge(svg)
+            .attr('width', props.width)
+            .attr('height', props.height);
+    
+    // Agregar un rectángulo con fondo blanco al SVG
+    const rect = svg.selectAll('rect').data([null]);
+    rect
+        .enter().append('rect')
+        .attr('rx', 30)
+        .merge(rect)
+        .attr("fill", "white")
+        .attr('width', props.width)
+        .attr('height', props.height);
+    
+    // Crea un grupo (g) para el gráfico con el margen aplicado
+    let g = svg.selectAll('g').data([null]);
+    g = g.enter().append("g")
+        .merge(g)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    
+    // Título del gráfico
+    let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
+    titulo = titulo.enter().append("text")
+        .attr("class", "chart-title")
+        .text("Consumo vs. Producción Mes") // Título del gráfico
+        .merge(titulo)
+        .attr("x", (props.width - margin.left - margin.right) / 2)
+        .attr("y", -margin.top/5)
+        .attr("text-anchor", "middle")
+        .style("font-size", "5vh");
+    
+    // Etiqueta del eje X
+    let etiquetax = g.selectAll('.x-axis-label').data([null]);
+    etiquetax = etiquetax.enter().append("text")
+        .attr("class", "x-axis-label")
+        .text("Días") // Etiqueta del eje X
+        .merge(etiquetax)
+        .attr("x", (props.width - margin.left - margin.right) / 2)
+        .attr("y", props.height - margin.bottom)
+        .attr("text-anchor", "middle")
+        .style("font-size", "3vh");
+
+    
+    // Etiqueta del eje Y
+    let etiquetay = g.selectAll('.y-axis-label').data([null]); 
+    etiquetay = etiquetay.enter().append("text")
+        .attr("class", "y-axis-label")
+        .text("Energía (Wh)") // Etiqueta del eje Y
+        .merge(etiquetay)
+        .attr("transform", "rotate(-90)")
+        .attr("x", - (props.height - margin.top - margin.bottom) / 2)
+        .attr("y", -(margin.left / 2))
+        .attr("dy", "-1vh")
+        .attr("text-anchor", "middle")
+        .style("font-size", "3vh");
+
+    
+    // Creación de la escala x y agregación del eje x.
+    const xScale = d3.scaleBand()
+        .domain(fechas)
+        .range([0, width])
+        .padding(0.2);
+    const xAxis = d3.axisBottom(xScale);
+    let xAxisG = g.selectAll('.x-axis1').data([null]);
+    xAxisG = xAxisG.enter().append('g')
+        .attr('class', 'x-axis1')
+    .merge(xAxisG)
+        .attr('transform', `translate(0, ${height})`);
+        xAxisG.call(xAxis);
+
+
+    // Creación de la escala x y agregación del eje x.
+    const yScale = d3.scaleLinear()
+        .domain([0, d3.max(consumos)])
+        .range([height, 0]);
+    const yAxis = d3.axisLeft(yScale);
+    let yAxisG = g.selectAll('.y-axis1').data([null]);
+    yAxisG = yAxisG.enter().append('g')
+        .attr('class', 'y-axis1')
+    .merge(yAxisG);
+        yAxisG.call(yAxis);
+
+
+    // Agregar línea al gráfico
+    let grafico = g.selectAll('.linea1').data(consumos);
+    grafico = grafico.enter().append("path")
+        .datum(consumos)
+        .attr("class", "linea1")
+    .merge(grafico)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2)
+        .attr("d", d3.line()
+            .x(function(d, i) { return xScale(fechas[i]) + xScale.bandwidth() / 2; })
+            .y(function(d) { return yScale(d); }));
+
+    // Agregar línea al gráfico
+    let grafico1 = g.selectAll('.linea2').data(produccion);
+    grafico1 = grafico1.enter().append("path")
+        .datum(produccion)
+        .attr("class", "linea2")
+    .merge(grafico1)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 2)
+        .attr("d", d3.line()
+            .x(function(d, i) { return xScale(fechas[i]) + xScale.bandwidth() / 2; })
+            .y(function(d) { return yScale(d); }));
+
+
+
+}
+
+function render_grafico_mes(){
+    grafico_consumo_produccion_mes(d3.select("#chart_consumo_produccion_mes"), {
+      width: contenedor_grafica.clientWidth,
+      height: contenedor_grafica.clientHeight,
+    });
+  };
+  
+  render_grafico_mes();
+  
+window.addEventListener('resize', render_grafico_mes);
+
+//.tickFormat(function(d) { return fechas[d]; }); // Usar fechas como etiquetas de los ticks

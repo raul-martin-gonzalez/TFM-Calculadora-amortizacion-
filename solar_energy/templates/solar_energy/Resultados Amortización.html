@@ -14,34 +14,96 @@
 {% block content %}
 <div class='informe-resultados'>
     <h2>Informe Amortización Placas Solares</h2>
+    <p id='mensaje advertencia'>Salvo aclaración expresa todos las catidades en € están sin IVA</p>
     <p>Nombre de la instalación: {{contexto1.name}}</p>
-    <p>Coordenadas: {{contexto1.altitud}} , {{contexto1.longitud}}</p>
-    <div id="dato-texto" data-dato="{{contexto1.dato_django}}"></div>
-    
+    <p>Coordenadas: {{contexto1.latitud}} , {{contexto1.longitud}}</p>
+    <p>La instalación se compone {{contexto1.N_placas}} módulos conectados en serie por cadena y {{contexto1.N_cadenas}} cadenas conectadas en paralelo</p>
+    <p>Según el coste proporcionado si tenemos en cuenta el ahorro sin IVA
+        producido por la instalación, tardaría en amortizar la instalación {{contexto3.Amortizacion}}
+        años. 
+    <p>Teniendo en cuenta que se considera que la vida útil de una instalación Fotovoltaica
+        es de 25 años, el beneficio que obtendría de esta instalación una vez amortizada es {{contexto3.Beneficio}}€.</p>
+    <p>Si se tiene en cuenta el IVA que se ahorraría al no pagar la electricidad que esta producciendo la amortización de la instalación se reduce
+        a {{contexto3.Amortizacion_IVA}} años y el beneficio aumenta hasta los {{contexto3.Beneficio_IVA}}€.
+    <p>En la tabla y gráficas siguientes se aportan los datos de consumo y producción estimados durante un año, además también
+        se muestran los datos de gasto sin placas como el ahorro con ellas. 
+    </p>
+    <!--<div id="dato-texto" data-dato="{{contexto1.dato_django}}"></div>-->
     
     <table>
+        <caption>CONSUMO, PRODUCCIÓN, GASTO, AHORRO Y RADIACIÓN POR MES</caption>
         <tr>
-            <th>CUPS</th>
-            <th>FECHA-HORA</th>
-            <th>CONSUMO Wh</th>
+            <th>MES</th>
+            <th>CONSUMO (kWh)</th>
+            <th>PRODUCCIÓN (kWh)</th>
+            <th>GASTO SIN PLACAS (€)</th>
+            <th>AHORRO CON PLACAS (€)</th>
+            <th>GASTO CON PLACAS (€)</th>
         </tr>
         
         {% for linea in contexto2 %}
         <tr>
-            <td>{{linea.CUPS}}</td>
-            <td>{{linea.FECHA_HORA}}</td>
+            <td>{{linea.Mes}}</td>
             <td>{{linea.CONSUMO_Wh}}</td>
+            <td>{{linea.Produccion}}</td>
+            <td>{{linea.Gasto_sin_placas}}</td>
+            <td>{{linea.Ahorro_con_placas}}</td>
+            <td>{{linea.Gasto_con_placas}}</td>
         </tr>
         {% endfor %}
+
+        <tr>
+            <td>TOTAL</td>
+            <td>{{contexto3.total_consumo}}</td>
+            <td>{{contexto3.total_producción}}</td>
+            <td>{{contexto3.total_gasto_sin_placas}}</td>
+            <td>{{contexto3.total_ahorro}}</td>
+            <td>{{contexto3.total_gasto_con_placas}}</td>
+        </tr>
     </table>
 
-    <div id="Datos_consumo"  data-consumo="{{contexto3}}"></div>
+    {% comment %} <div id="Datos_consumo"  data-consumo="{{contexto3}}"></div>
     <div id='Chart_consumo' class='chart-container'></div>
-    <div id='Bar_Chart_consumo' class='bar-chart-container'></div>
+    <div id='Bar_Chart_consumo' class='bar-chart-container'></div> {% endcomment %}
 
+    <div id="Datos_consumo_compacto" data-consumo="{{contexto4}}"></div>
+    <div id='Bar_Chart_consumo_produccion' class='bar-chart-container1'></div>
+
+    <div id='Bar_Chart_gasto_ahorro' class='bar-chart-container2'></div>
+
+    <select id='consumo_produccion_mes'>
+        <option value='01'> Enero </option>
+        <option value="02">Febrero</option>
+        <option value="03">Marzo</option>
+        <option value="04">Abril</option>
+        <option value="05">Mayo</option>
+        <option value="06">Junio</option>
+        <option value="07">Julio</option>
+        <option value="08">Agosto</option>
+        <option value="09">Septiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+    </select>
+
+    <button onclick="representacion_graficas()"> Mostrar Gráfica</button>
+    <div id="Datos_consumo_produccion_mes" data-consumo="{{contexto5}}"></div>
+    <div id='chart_consumo_produccion_mes' class='Chart_container_mes'></div>
+    <div id='chart_gasto_ahorro_mes' class='Chart_container_mes2'></div>
+  
+  
 </div>  
-    <script src="{% static 'solar_energy/JavaScript/Gráfico de consumo y producción.js' %}"></script>
-    <script src="{% static 'solar_energy/JavaScript/Gráfico de barras consumo.js' %}"></script>
-
+    {% comment %} <script src="{% static 'solar_energy/JavaScript/Gráfico de consumo y producción.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico de barras consumo.js' %}"></script> {% endcomment %}
+    <script src="{% static 'solar_energy/JavaScript/Gráfico compacto consumo y producción.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico gasto y ahorro compacto.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico consumo y producción por mes.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico gasto y ahorro mes.js' %}"></script>
+    <script> 
+        function representacion_graficas(){
+            render_grafico_mes();
+            render_gasto_ahorro_mes();
+        }
+    </script>
 {% endblock %}
 
