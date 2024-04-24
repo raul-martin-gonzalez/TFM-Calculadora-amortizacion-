@@ -27,14 +27,14 @@ SECRET_KEY = 'django-insecure-=33u@#=64+&!km8^lbv%$l&)98fym(p@+t^&1rw7h!&t_&aclz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# CLOUDRUN_SERVICE_URL = 'https://app-django-opunkgc4ya-ew.a.run.app/'
-# if CLOUDRUN_SERVICE_URL:
-#     ALLOWED_HOSTS = [urlparse(CLOUDRUN_SERVICE_URL).netloc]
-#     CSRF_TRUSTED_ORIGINS = [CLOUDRUN_SERVICE_URL]
-#     SECURE_SSL_REDIRECT = True
-#     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-# else:
-ALLOWED_HOSTS = ["*"]
+CLOUDRUN_SERVICE_URL = 'https://app-django-opunkgc4ya-ew.a.run.app/'
+if CLOUDRUN_SERVICE_URL:
+    ALLOWED_HOSTS = [urlparse(CLOUDRUN_SERVICE_URL).netloc]
+    CSRF_TRUSTED_ORIGINS = [CLOUDRUN_SERVICE_URL]
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+else:
+    ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
