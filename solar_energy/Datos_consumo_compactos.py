@@ -11,21 +11,24 @@ def datos_consumo_compacto(df, radiacion, produccion, precio):
     mes =[]
     año = []
     hora =[]
-
+    fechas = []
     for i in datos_fecha_split:
         dia.append(i[0])
         mes.append(i[1])
         x = i[2].split(' ')
         año.append(x[0])
         hora.append(x[1])
+        fecha = x[0] + '-' + i[1] + '-' + i[0]
+        fechas.append(fecha)
 
+    df['Fecha'] = fechas
     df['Día'] = dia
     df['Mes'] = mes
     df['Año'] = año
     df['Hora'] = hora
     df['Precio_luz'] = list(precio['value']/1000)
 
-    df_final = df.reindex(['FECHA-HORA', 'Día', 'Mes', 'Año', 'Hora', 'CONSUMO Wh', 'Precio_luz'], axis=1)
+    df_final = df.reindex(['FECHA-HORA', 'Día', 'Mes', 'Año', 'Fecha', 'Hora', 'CONSUMO Wh', 'Precio_luz'], axis=1)
    
     #df_final.drop('FECHA-HORA', axis=1, inplace=True)
    

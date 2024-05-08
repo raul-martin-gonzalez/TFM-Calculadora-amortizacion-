@@ -1,0 +1,46 @@
+.contenedor {
+    color: #fa7c07ea;
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100%-2*3vw);
+    height: 80vh;
+    /*background: rgba(241, 238, 238, 0.904);*/
+    border: solid rgb(193, 245, 6) 10px;
+    /*padding: 20px; /* Añade un padding de 20px a todos los lados del contenedor */
+    box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
+    margin: 5vh 3vw;
+}
+
+.container-video video {
+    width: 100%;
+    
+    object-fit: cover; /* Para mantener la relación de aspecto del video */
+}
+
+.container-formulario{
+    padding-left: 3vh;
+}
+
+.container-formulario ul{
+    list-style: none;
+}
+
+.container-video , .container-formulario{
+    flex: 1 1 50%; /* Divide el espacio en dos para cada gráfico */
+    min-width: 300px; /* Define el ancho mínimo */
+    box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
+    height: 100%;
+    border: solid 1vh rgb(42, 6, 245)
+}
+
+@media (max-width: 1000px) {
+    .contenedor {
+        height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
+    }
+
+    .container-video , .container-formulario{
+        flex: 1 1 100%; /* Cambia el ancho de cada contenedor al 100% cuando la ventana sea menor de 600px */
+        height: 50%; /* Cada subcontenedor ocupa el 50% de la altura del contenedor padre */
+    }
+
+}

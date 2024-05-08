@@ -1,59 +1,49 @@
-contenedor_grafica = document.getElementById('chart_consumo_produccion_mes');
-
+// Gráfico de consumo y producción diario.
+contenedor_grafica = document.getElementById('chart_gasto_ahorro_dia');
 contenedor_datos = document.getElementById('Datos_consumo_produccion_mes');
-
 var datos_json = contenedor_datos.getAttribute('data-consumo');
-
 var datos_consumo = JSON.parse(datos_json)
-//console.log(datos_consumo);
+// Función para filtrar los datos
 
-
-// var datos = [
-//     { mes: "01", valor: 'Mes de Enero fue seleccionado' },
-//     { mes: "02", valor: 'Mes de Febrero fue seleccionado' },
-//     { mes: "03", valor: 'Mes de Marzo fue seleccionado' },
-//     { mes: "04", valor: 'Mes de Abril fue seleccionado' },
-//     { mes: "05", valor: 'Mes de Mayo fue seleccionado' },
-//     { mes: "06", valor: 'Mes de Junio fue seleccionado' },
-//     { mes: "07", valor: 'Mes de Julio fue seleccionado' },
-//     { mes: "08", valor: 'Mes de Agosto fue seleccionado' },
-//     { mes: "09", valor: 'Mes de Septiembre fue seleccionado' },
-//     { mes: "10", valor: 'Mes de Octubre fue seleccionado' },
-//     { mes: "11", valor: 'Mes de Noviembre fue seleccionado' },
-//     { mes: "12", valor: 'Mes de Diciembre fue seleccionado' },
-// ];
-
-function filtrarDatosPorMes(mesSeleccionado) {
+function filtrarDatosPorDia(diaSeleccionado) {
     return datos_consumo.filter(function(d) {
-        return d.Mes === mesSeleccionado;
+        return d.Fecha === diaSeleccionado;
     });
 }
 
-function grafico_consumo_produccion_mes(container, props) {
-    var mesSeleccionado = document.getElementById("consumo_produccion_mes").value;
-    var datosFiltrados = filtrarDatosPorMes(mesSeleccionado);
+// function filterData() {
+//     const dateInput = document.getElementById('dateInput').value;
+//     console.log(dateInput);
+//     console.log(typeof dateInput)
+//     var datosFiltrados = filtrarDatosPorDia(dateInput);
+//     console.log(datosFiltrados)
+  
+// }
+
+
+function grafico_gasto_ahorro_dia(container, props) {
+    const dateInput = document.getElementById('dateInput').value;
+    console.log(dateInput);
+    console.log(typeof dateInput)
+    var datosFiltrados = filtrarDatosPorDia(dateInput);
+    console.log(datosFiltrados)
 
     var fechas = [];
-    var consumos = [];
-    var produccion = [];
+    var gasto_no_placas = [];
+    var ahorros = [];
+    var gasto_si_placas = [];
 
     for (var i = 0; i < datosFiltrados.length; i++) {
         var fechaHora = datosFiltrados[i].FECHA_HORA;
-        var consumo = datosFiltrados[i].CONSUMO_Wh;
-        var produc = datosFiltrados[i].Produccion;
+        var gasto_no = datosFiltrados[i].Gasto_sin_placas;
+        var ahorro = datosFiltrados[i].Ahorro_con_placas;
+        var gasto_si = datosFiltrados[i].Gasto_con_placas;
         
         fechas.push(fechaHora);
-        consumos.push(consumo);
-        produccion.push(produc)
-      }
-
-    // console.log(fechas);
-    // console.log(consumos);
-
-    //contenedor_grafica.textContent = datosFiltrados[0].CONSUMO_Wh
-    
-    // var Fecha = ['1:00', '2:00', '3:00', '4:00' ,'5:00' ,'6:00' ,'7:00' ,'8:00', '9:00', '10:00']
-    // var consumo = [398, 1176, 959, 264, 212, 213, 213, 193, 239, 300]
+        gasto_no_placas.push(gasto_no);
+        ahorros.push(ahorro);
+        gasto_si_placas.push(gasto_si)
+    }
 
     //Margen y dimensiones del gráfico
     var margin = {top: 0.1 * props.height, right: 0.04 * props.width, bottom: 0.2* props.height, left: 0.14 * props.width};
@@ -128,10 +118,11 @@ function grafico_consumo_produccion_mes(container, props) {
     const xScale = d3.scaleBand()
         .domain(d3.range(fechas.length))
         .range([0, width])
-        .padding(0.2);
-    const xAxis = d3.axisBottom(xScale)
-        .tickValues(d3.range(0, fechas.length, 24)) // Mostrar un valor por cada 24 valores
-        .tickFormat(function(d, i) { return i + 1; }); // Usar números enteros como etiquetas de los ticks
+        .padding(0.2)
+        .paddingOuter(-0.4); // Ajustamos el espacio en los extremos del eje x
+    const xAxis = d3.axisBottom(xScale);
+        //.tickValues(d3.range(0, fechas.length, 24)) // Mostrar un valor por cada 24 valores
+        //.tickFormat(function(d, i) { return i + 1; }); // Usar números enteros como etiquetas de los ticks
     let xAxisG = g.selectAll('.x-axis1').data([null]);
     xAxisG = xAxisG.enter().append('g')
         .attr('class', 'x-axis1')
@@ -142,7 +133,7 @@ function grafico_consumo_produccion_mes(container, props) {
 
     // Creación de la escala y y agregación del eje y.
     const yScale = d3.scaleLinear()
-        .domain([0, d3.max(consumos)])
+        .domain([0, d3.max(gasto_no_placas)])
         .range([height, 0]);
     const yAxis = d3.axisLeft(yScale);
     let yAxisG = g.selectAll('.y-axis1').data([null]);
@@ -153,9 +144,9 @@ function grafico_consumo_produccion_mes(container, props) {
 
 
     // Agregar línea al gráfico
-    let grafico = g.selectAll('.linea1').data(consumos);
+    let grafico = g.selectAll('.linea1').data(gasto_no_placas);
     grafico = grafico.enter().append("path")
-        .datum(consumos)
+        .datum(gasto_no_placas)
         .attr("class", "linea1")
     .merge(grafico)
         .attr("fill", "none")
@@ -166,9 +157,9 @@ function grafico_consumo_produccion_mes(container, props) {
             .y(function(d) { return yScale(d); }));
 
     // Agregar línea al gráfico
-    let grafico1 = g.selectAll('.linea2').data(produccion);
+    let grafico1 = g.selectAll('.linea2').data(ahorros);
     grafico1 = grafico1.enter().append("path")
-        .datum(produccion)
+        .datum(ahorros)
         .attr("class", "linea2")
     .merge(grafico1)
         .attr("fill", "none")
@@ -179,47 +170,46 @@ function grafico_consumo_produccion_mes(container, props) {
             .y(function(d) { return yScale(d); }));  
 
 
-// Agregar leyenda
-let legend = g.selectAll('.legend').data([null]); 
-legend = legend.enter().append("g")
-    .attr("class", "legend")
-  .merge(legend)
-    .attr("transform", "translate(" + (-margin.left/2) + "," + (height + margin.bottom/3) + ")");
+    // Agregar leyenda
+    let legend = g.selectAll('.legend').data([null]); 
+    legend = legend.enter().append("g")
+        .attr("class", "legend")
+    .merge(legend)
+        .attr("transform", "translate(" + (-margin.left/2) + "," + (height + margin.bottom/3) + ")");
 
-// Datos de la leyenda
-const legendData = [
-{ label: "Consumo", color: "steelblue" },
-{ label: "Producción", color: "red" }
-];
+    // Datos de la leyenda
+    const legendData = [
+    { label: "Gasto sin placas", color: "steelblue" },
+    { label: "Ahorro con placas", color: "red" }
+    ];
 
-// Crear cuadrados de color y etiquetas de texto para la leyenda
-legend.selectAll("rect")
-.data(legendData)
-.enter().append("rect")
-.attr("x", 0)
-.attr("y", (d, i) => i * 20)
-.attr("width", 10)
-.attr("height", 10)
-.style("fill", d => d.color);
+    // Crear cuadrados de color y etiquetas de texto para la leyenda
+    legend.selectAll("rect")
+    .data(legendData)
+    .enter().append("rect")
+    .attr("x", 0)
+    .attr("y", (d, i) => i * 20)
+    .attr("width", 10)
+    .attr("height", 10)
+    .style("fill", d => d.color);
 
-legend.selectAll("text")
-.data(legendData)
-.enter().append("text")
-.attr("x", 15)
-.attr("y", (d, i) => i * 20 + 9)
-.text(d => d.label)
-.style("font-size", "12px")
-.attr("alignment-baseline", "middle");
-
+    legend.selectAll("text")
+    .data(legendData)
+    .enter().append("text")
+    .attr("x", 15)
+    .attr("y", (d, i) => i * 20 + 9)
+    .text(d => d.label)
+    .style("font-size", "12px")
+    .attr("alignment-baseline", "middle");
 }
 
-function render_grafico_mes(){
-    grafico_consumo_produccion_mes(d3.select("#chart_consumo_produccion_mes"), {
+function render_grafico_ahorro_dia(){
+    grafico_gasto_ahorro_dia(d3.select("#chart_gasto_ahorro_dia"), {
       width: contenedor_grafica.clientWidth,
       height: contenedor_grafica.clientHeight,
     });
   };
   
-render_grafico_mes();
+render_grafico_ahorro_dia();
   
-window.addEventListener('resize', render_grafico_mes);
+window.addEventListener('resize', render_grafico_ahorro_dia);

@@ -1,60 +1,15 @@
-contenedor_grafica = document.getElementById('chart_consumo_produccion_mes');
+contenedor_datos_comparativa = document.getElementById('Datos_comparativa');
+var data_comparativa_str = contenedor_datos_comparativa.getAttribute('data-comparativa');
+var data_comparativa = JSON.parse(data_comparativa_str);
+// var data = data_comparativa.placas_1;
+// console.log(typeof(data_comparativa));
+// console.log(data_comparativa_str)
+// console.log('Hola que tal ertre');
+// console.log(data);
 
-contenedor_datos = document.getElementById('Datos_consumo_produccion_mes');
+contenedor_grafica = document.getElementById('chart_comparativa_placas');
 
-var datos_json = contenedor_datos.getAttribute('data-consumo');
-
-var datos_consumo = JSON.parse(datos_json)
-//console.log(datos_consumo);
-
-
-// var datos = [
-//     { mes: "01", valor: 'Mes de Enero fue seleccionado' },
-//     { mes: "02", valor: 'Mes de Febrero fue seleccionado' },
-//     { mes: "03", valor: 'Mes de Marzo fue seleccionado' },
-//     { mes: "04", valor: 'Mes de Abril fue seleccionado' },
-//     { mes: "05", valor: 'Mes de Mayo fue seleccionado' },
-//     { mes: "06", valor: 'Mes de Junio fue seleccionado' },
-//     { mes: "07", valor: 'Mes de Julio fue seleccionado' },
-//     { mes: "08", valor: 'Mes de Agosto fue seleccionado' },
-//     { mes: "09", valor: 'Mes de Septiembre fue seleccionado' },
-//     { mes: "10", valor: 'Mes de Octubre fue seleccionado' },
-//     { mes: "11", valor: 'Mes de Noviembre fue seleccionado' },
-//     { mes: "12", valor: 'Mes de Diciembre fue seleccionado' },
-// ];
-
-function filtrarDatosPorMes(mesSeleccionado) {
-    return datos_consumo.filter(function(d) {
-        return d.Mes === mesSeleccionado;
-    });
-}
-
-function grafico_consumo_produccion_mes(container, props) {
-    var mesSeleccionado = document.getElementById("consumo_produccion_mes").value;
-    var datosFiltrados = filtrarDatosPorMes(mesSeleccionado);
-
-    var fechas = [];
-    var consumos = [];
-    var produccion = [];
-
-    for (var i = 0; i < datosFiltrados.length; i++) {
-        var fechaHora = datosFiltrados[i].FECHA_HORA;
-        var consumo = datosFiltrados[i].CONSUMO_Wh;
-        var produc = datosFiltrados[i].Produccion;
-        
-        fechas.push(fechaHora);
-        consumos.push(consumo);
-        produccion.push(produc)
-      }
-
-    // console.log(fechas);
-    // console.log(consumos);
-
-    //contenedor_grafica.textContent = datosFiltrados[0].CONSUMO_Wh
-    
-    // var Fecha = ['1:00', '2:00', '3:00', '4:00' ,'5:00' ,'6:00' ,'7:00' ,'8:00', '9:00', '10:00']
-    // var consumo = [398, 1176, 959, 264, 212, 213, 213, 193, 239, 300]
-
+function grafico_comparativa(container, props) {
     //Margen y dimensiones del gráfico
     var margin = {top: 0.1 * props.height, right: 0.04 * props.width, bottom: 0.2* props.height, left: 0.14 * props.width};
     var width = props.width - margin.left - margin.right;
@@ -91,7 +46,7 @@ function grafico_consumo_produccion_mes(container, props) {
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
         .attr("class", "chart-title")
-        .text("Consumo vs. Producción Mes") // Título del gráfico
+        .text("Gasto vs. Consumo Mes") // Título del gráfico
         .merge(titulo)
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
@@ -114,7 +69,7 @@ function grafico_consumo_produccion_mes(container, props) {
     let etiquetay = g.selectAll('.y-axis-label').data([null]); 
     etiquetay = etiquetay.enter().append("text")
         .attr("class", "y-axis-label")
-        .text("Energía (kWh)") // Etiqueta del eje Y
+        .text("€") // Etiqueta del eje Y
         .merge(etiquetay)
         .attr("transform", "rotate(-90)")
         .attr("x", - (props.height - margin.top - margin.bottom) / 2)
@@ -126,12 +81,12 @@ function grafico_consumo_produccion_mes(container, props) {
     
     // Creación de la escala x y agregación del eje x.
     const xScale = d3.scaleBand()
-        .domain(d3.range(fechas.length))
+        .domain(d3.range(data_comparativa.años.length))
         .range([0, width])
         .padding(0.2);
     const xAxis = d3.axisBottom(xScale)
-        .tickValues(d3.range(0, fechas.length, 24)) // Mostrar un valor por cada 24 valores
-        .tickFormat(function(d, i) { return i + 1; }); // Usar números enteros como etiquetas de los ticks
+        //.tickValues(d3.range(0, fechas.length, 24)) // Mostrar un valor por cada 24 valores
+        //.tickFormat(function(d, i) { return i + 1; }); // Usar números enteros como etiquetas de los ticks
     let xAxisG = g.selectAll('.x-axis1').data([null]);
     xAxisG = xAxisG.enter().append('g')
         .attr('class', 'x-axis1')
@@ -140,9 +95,9 @@ function grafico_consumo_produccion_mes(container, props) {
         xAxisG.call(xAxis);
 
 
-    // Creación de la escala y y agregación del eje y.
+    // Creación de la escala x y agregación del eje x.
     const yScale = d3.scaleLinear()
-        .domain([0, d3.max(consumos)])
+        .domain([d3.min(data_comparativa.placas_35), d3.max(data_comparativa.placas_35)])
         .range([height, 0]);
     const yAxis = d3.axisLeft(yScale);
     let yAxisG = g.selectAll('.y-axis1').data([null]);
@@ -153,9 +108,9 @@ function grafico_consumo_produccion_mes(container, props) {
 
 
     // Agregar línea al gráfico
-    let grafico = g.selectAll('.linea1').data(consumos);
+    let grafico = g.selectAll('.linea1').data(data_comparativa.placas_1);
     grafico = grafico.enter().append("path")
-        .datum(consumos)
+        .datum(data_comparativa.placas_1)
         .attr("class", "linea1")
     .merge(grafico)
         .attr("fill", "none")
@@ -166,9 +121,9 @@ function grafico_consumo_produccion_mes(container, props) {
             .y(function(d) { return yScale(d); }));
 
     // Agregar línea al gráfico
-    let grafico1 = g.selectAll('.linea2').data(produccion);
+    let grafico1 = g.selectAll('.linea2').data(data_comparativa.placas_2);
     grafico1 = grafico1.enter().append("path")
-        .datum(produccion)
+        .datum(data_comparativa.placas_2)
         .attr("class", "linea2")
     .merge(grafico1)
         .attr("fill", "none")
@@ -176,8 +131,46 @@ function grafico_consumo_produccion_mes(container, props) {
         .attr("stroke-width", 2)
         .attr("d", d3.line()
             .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
-            .y(function(d) { return yScale(d); }));  
+            .y(function(d) { return yScale(d); })); 
 
+    // Agregar línea al gráfico
+    let grafico2 = g.selectAll('.linea3').data(data_comparativa.placas_4);
+    grafico2 = grafico2.enter().append("path")
+        .datum(data_comparativa.placas_4)
+        .attr("class", "linea3")
+    .merge(grafico2)
+        .attr("fill", "none")
+        .attr("stroke", "green")
+        .attr("stroke-width", 2)
+        .attr("d", d3.line()
+            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
+            .y(function(d) { return yScale(d); }));
+    
+    // Agregar línea al gráfico
+    let grafico3 = g.selectAll('.linea4').data(data_comparativa.placas_8);
+    grafico3 = grafico3.enter().append("path")
+        .datum(data_comparativa.placas_8)
+        .attr("class", "linea4")
+    .merge(grafico3)
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .attr("d", d3.line()
+            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
+            .y(function(d) { return yScale(d); }));
+
+    // Agregar línea al gráfico
+    let grafico4 = g.selectAll('.linea5').data(data_comparativa.placas_35);
+    grafico4 = grafico4.enter().append("path")
+        .datum(data_comparativa.placas_35)
+        .attr("class", "linea5")
+    .merge(grafico4)
+        .attr("fill", "none")
+        .attr("stroke", "yellow")
+        .attr("stroke-width", 2)
+        .attr("d", d3.line()
+            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
+            .y(function(d) { return yScale(d); })); 
 
 // Agregar leyenda
 let legend = g.selectAll('.legend').data([null]); 
@@ -188,8 +181,11 @@ legend = legend.enter().append("g")
 
 // Datos de la leyenda
 const legendData = [
-{ label: "Consumo", color: "steelblue" },
-{ label: "Producción", color: "red" }
+{ label: "Placas_1", color: "steelblue" },
+{ label: "Placas_2", color: "red" },
+{ label: "Placas_4", color: "green" },
+{ label: "Placas_8", color: "black" },
+{ label: "Placas_35", color: "yellow" },
 ];
 
 // Crear cuadrados de color y etiquetas de texto para la leyenda
@@ -213,13 +209,15 @@ legend.selectAll("text")
 
 }
 
-function render_grafico_mes(){
-    grafico_consumo_produccion_mes(d3.select("#chart_consumo_produccion_mes"), {
+function render_comparativa(){
+    grafico_comparativa(d3.select("#chart_comparativa_placas"), {
       width: contenedor_grafica.clientWidth,
       height: contenedor_grafica.clientHeight,
     });
   };
   
-render_grafico_mes();
+  render_comparativa();
   
-window.addEventListener('resize', render_grafico_mes);
+window.addEventListener('resize', render_comparativa);
+
+

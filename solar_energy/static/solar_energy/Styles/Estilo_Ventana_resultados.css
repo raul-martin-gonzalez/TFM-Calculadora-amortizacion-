@@ -1,5 +1,5 @@
 .informe-resultados{
-    color: #07fa38ea;
+    color: #fa7c07ea;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -37,29 +37,152 @@
     border: solid rgb(245, 70, 6) 10px;
 } */
 
-#Bar_Chart_consumo_produccion{
-    width: 80vh;
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1vh solid #080808;
+    padding: 3vh; /* Relleno para toda la tabla */
+    margin: 4vh 0;
+    background: rgb(97, 106, 107); 
+}
+
+.table th, .table td {
+    border-top: 0.5vh solid #080808; /* Borde de celdas de color negro-gris */
+    border-bottom: 0.5vh solid #080808; /* Borde de celdas de color negro-gris */
+    text-align: center;
+    padding: 2vh;
+}
+
+.Cabecera-tabla{
+    background: rgb(86, 101, 115);
+}
+
+.container_graficas_compactas{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     height: 60vh;
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(193, 245, 6) 10px;
+}
+
+#Bar_Chart_consumo_produccion, #Bar_Chart_gasto_ahorro {
+    flex: 1 1 50%; /* Divide el espacio en dos para cada gráfico */
+    min-width: 300px; /* Define el ancho mínimo */
+    box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
+    height: 100%;
+}
+
+#Bar_Chart_consumo_produccion{
+    /* width: 80vh;
+    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     border: solid rgb(22, 245, 6) 10px;
 }
 
 
 #Bar_Chart_gasto_ahorro{
-    width: 80vh;
-    height: 60vh;
+    /* width: 80vh;
+    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(245, 70, 6) 10px;
+    border: solid rgb(219, 39, 39) 10px;
 }
 
-.Chart_container_mes{
-    width: 80vh;
+@media (max-width: 600px) {
+    .container_graficas_compactas {
+        height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
+    }
+
+    #Bar_Chart_consumo_produccion, #Bar_Chart_gasto_ahorro {
+        flex: 1 1 100%; /* Cambia el ancho de cada contenedor al 100% cuando la ventana sea menor de 600px */
+        height: 50%; /* Cada subcontenedor ocupa el 50% de la altura del contenedor padre */
+    }
+}
+
+.container_graficas_mensuales{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     height: 60vh;
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(193, 245, 6) 10px;
+}
+
+#chart_consumo_produccion_mes, #chart_gasto_ahorro_mes {
+    flex: 1 1 50%; /* Divide el espacio en dos para cada gráfico */
+    min-width: 300px; /* Define el ancho mínimo */
+    box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
+    height: 100%;
+}
+
+#chart_consumo_produccion_mes{
+    /* width: 80vh;
+    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     border: solid rgb(245, 70, 6) 10px;
 }
 
 #chart_gasto_ahorro_mes{
+    /* width: 80vh;
+    height: 60vh; */
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(22, 245, 6) 10px;
+}
+
+@media (max-width: 600px) {
+    .container_graficas_mensuales {
+        height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
+    }
+
+    #chart_consumo_produccion_mes, #chart_gasto_ahorro_mes {
+        flex: 1 1 100%; /* Cambia el ancho de cada contenedor al 100% cuando la ventana sea menor de 600px */
+        height: 50%; /* Cada subcontenedor ocupa el 50% de la altura del contenedor padre */
+    }
+}
+
+.container_graficas_diarias{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 60vh;
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(193, 245, 6) 10px;
+}
+
+#chart_consumo_produccion_dia, #chart_gasto_ahorro_dia {
+    flex: 1 1 50%; /* Divide el espacio en dos para cada gráfico */
+    min-width: 300px; /* Define el ancho mínimo */
+    box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
+    height: 100%;
+}
+
+#chart_consumo_produccion_dia{
+    /* width: 80vh;
+    height: 60vh; */
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(245, 70, 6) 10px;
+}
+
+#chart_gasto_ahorro_dia{
+    /* width: 80vh;
+    height: 60vh; */
+    background: rgba(241, 238, 238, 0.904);
+    border: solid rgb(22, 245, 6) 10px;
+}
+
+@media (max-width: 600px) {
+    .container_graficas_diarias {
+        height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
+    }
+
+    #chart_consumo_produccion_dia, #chart_gasto_ahorro_dia {
+        flex: 1 1 100%; /* Cambia el ancho de cada contenedor al 100% cuando la ventana sea menor de 600px */
+        height: 50%; /* Cada subcontenedor ocupa el 50% de la altura del contenedor padre */
+    }
+}
+
+
+#chart_comparativa_placas{
     width: 80vh;
     height: 60vh;
     background: rgba(241, 238, 238, 0.904);

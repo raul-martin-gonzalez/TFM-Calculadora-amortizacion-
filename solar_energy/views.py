@@ -4,6 +4,8 @@ from django.http import HttpRequest
 import pandas as pd
 from solar_energy.Datos_consumo_compactos import datos_consumo_compacto
 from solar_energy.Rendimiento_sistema_FV_conectado_red import modelo_fotovoltaico
+from solar_energy.Datos_comparativa import datos_comparativa
+import json
 
 # Create your views here.
 def inicio(request):
@@ -36,13 +38,13 @@ def calculadora_amortizacion(request):
             'latitud': request.POST['latitud'],
             'longitud': request.POST['longitud'],
             'N_placas': request.POST['placas_cadena'],
-            'N_cadenas': request.POST['cadenas_paralelo'],
+            #'N_cadenas': request.POST['cadenas_paralelo'],
             'Coste': request.POST['coste_sistema'],
             # 'dato_django': "Dato obtenido a través de django"
         }
 
                 
-        datos_radiacion, datos_produccion = modelo_fotovoltaico(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(dic_var['N_placas']), float(dic_var['N_cadenas']))
+        datos_radiacion, datos_produccion = modelo_fotovoltaico(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(dic_var['N_placas']))
         # print(list(datos_produccion.head(20)))
         # print(len(datos_radiacion))
         # print(len(datos_produccion))
@@ -54,7 +56,8 @@ def calculadora_amortizacion(request):
         consumo_compacto_json = consumo_compacto.to_json(orient='records')
         consumo_mes_json = consumo_mes.to_json(orient='records')
         datos_tabla = consumo_compacto.to_dict(orient='records')
-        print(consumo_mes.head(20))
+        pd.options.display.width = 500
+        print(consumo_mes['Fecha'].head(40))
         print(consumo_compacto.head(20))
 
         dic_totales = {
@@ -76,8 +79,11 @@ def calculadora_amortizacion(request):
         #print(type(altitud))
         #return HttpResponse(altitud)
 
+        data_comparativa = datos_comparativa(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(request.POST['coste_sistema']), float(request.POST['subvencion_sistema']))
+        data_comparativa_json = json.dumps(data_comparativa)
+        print(data_comparativa)
 
-        return resultados(request, {'contexto1': dic_var, 'contexto2': datos_tabla, "contexto3": dic_totales , "contexto4": consumo_compacto_json, 'contexto5':consumo_mes_json})
+        return resultados(request, {'contexto1': dic_var, 'contexto2': datos_tabla, "contexto3": dic_totales , "contexto4": consumo_compacto_json, 'contexto5':consumo_mes_json, 'contexto6':data_comparativa_json})
 
     return render(request, "solar_energy/Calculadora.html") 
 

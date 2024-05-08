@@ -1,9 +1,9 @@
 {% extends 'solar_energy/Barra de Navegacion.html' %}
 
 {% load static %}
-
+    
 {% block style %}
-
+    <link rel="stylesheet" href="{% static 'solar_energy/Styles/Estilo_Ventana_calculadora_simple.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -11,128 +11,85 @@
 {% endblock %}
 
 {% block content %}
-<video controls>
-    <source src="{% static 'solar_energy/Videos/Video_radiación1.mp4' %}">
-    <p>Tu navegador no admite la etiqueta de video</p>
-</video>
+<div class="contenedor">
+    <div class="container-video">
+        <video controls>
+            <source src="{% static 'solar_energy/Videos/Video_radiación1.mp4' %}">
+            <p>Tu navegador no admite la etiqueta de video</p>
+        </video>    
+    </div>
 
-<form action="/calculadora_amortizacion" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <ul>
-        <li>
-            <h2><strong>Localización de la instalación.</strong></h2>
-        </li>
+    <div class="container-formulario">
+        <form action="/calculadora_amortizacion" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <ul>
+                <li>
+                    <h2><strong>Localización de la instalación.</strong></h2>
+                </li>
 
-        <!--Campo de texto para indicar un nombre para su instalación-->
-        <li> 
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name_instalacion"/>
-        </li>
+                <!--Campo de texto para indicar un nombre para su instalación-->
+                <li> 
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name_instalacion"/>
+                </li>
 
-        <!--#Campo numérico Altitud-->
-        <li>
-            <label for='Latitud'>Latitud:</label>
-            <input type='number' id='Latitud' name='latitud' step='any'/>
-        </li>
+                <!--#Campo numérico Altitud-->
+                <li>
+                    <label for='Latitud'>Latitud:</label>
+                    <input type='number' id='Latitud' name='latitud' step='any'/>
+                </li>
 
-        <!--#Campo numérico Longitud-->
-        <li>
-            <label for='Longitud'>Longitud:</label>
-            <input type='number' id='Longitud' name='longitud' step='any'/>
-        </li>
+                <!--#Campo numérico Longitud-->
+                <li>
+                    <label for='Longitud'>Longitud:</label>
+                    <input type='number' id='Longitud' name='longitud' step='any'/>
+                </li>
 
-        <li>
-            <h2>Composición de la instalación</h2>
-        </li>
+                <li>
+                    <h2>Composición de la instalación</h2>
+                </li>
 
-        <li>
-            <label for='Placas_cadena'>Nº placas en serie por cadena:</label>
-            <input type='number' id='Placas_cadena' name='placas_cadena' step='any'/>
-        </li>
+                <li>
+                    <label for='Placas_cadena'>Nº placas en serie por cadena:</label>
+                    <input type='number' id='Placas_cadena' name='placas_cadena' step='any'/>
+                </li>
 
-        <li>
-            <label for='Cadenas_paralelo'>Nº cadenas en paralelo:</label>
-            <input type='number' id='Cadenas_paralelo' name='cadenas_paralelo' step='any'/>
-        </li>
-
-        <!--Select box tecnología Fotovoltaica-->
-        {% comment %} <li>
-            <label for='Base_datos'>Base de datos de radiación solar:</label>
-            <select id="Base_datos" name="base_datos">
-                <option selected>PVGIS-SARAH2</option>
-                <option>PVGIS-SARAH</option>
-                <option>PVGIS-ERA5</option>
-            </select>
-        </li> {% endcomment %}
-        
-        <!--Select box tecnología Fotovoltaica-->
-        {% comment %} <li>
-            <label for='Tec_FV'>Tecnología FV:</label>
-            <select id="Tec_FV" name="tec_fv">
-                <option selected>Silicio cristalino</option>
-                <option>CIS</option>
-                <option>CdTE</option>
-                <option>Desconocido</option>
-            </select>
-        </li> {% endcomment %}
-
-        {% comment %} <li>
-            <h4><strong>Opciones de montaje fijo.</strong></h4>
-        </li>
-
-        <!--Select box posición de montaje-->
-        <li>
-            <label for='Pos_montaje'>Posicioón de montaje:</label>
-            <select id="Pos_montaje" name="pos_montaje">
-                <option selected>Posición libre</option>
-                <option>Integrado en el edificio</option>
-            </select>
-        </li>
-
-        <!--Input numérico para indicar la inclinación de la sobre la horizontal-->
-        <li>
-            <label for='Inclinacion'>Inclinación [º]:</label>
-            <input type='number' id='Inclinacion' name='inclinacion' step='any' min='0' />
-        </li>
-
-        <!--Input numérico para indicar el giro de la placa respecto del Norte siendo este 0 y el Sur 180-->
-        <li>
-            <label for='Azimut'>Azimut [º]:</label>
-            <input type='number' id='Azimut' name='azimut' step='any' min='0' />
-        </li> {% endcomment %}
-
-        <li>
-            <h2><strong>Coste de la instalación.</strong></h2>
-        </li>
-
-        <!--Coste sistema FV-->
-        <li>
-            <label for='Coste_Sistema'>Coste Instalación con IVA [€]:</label>
-            <input type='number' id='Coste_Sistema' name='coste_sistema' step='0.01' min='0' />
-        </li>
-
-        <!--Interés del prestamo
-        <li>
-            <label for='Interes'>Interés[%/año%]:</label>
-            <input type='number' id='Interes' name='interes' step='0.01' min='0' />
-        </li>-->
-
-        <li>
-            <h2>Datos de consumo de su hogar o industria</h2>
-        </li>
-
-        <li>
-            <label for="file">Suba el archivo de consumo en formato csv  </label>
-            <input type="file" id="file" name="file">
-        </li>
-
-        <!--Botón de envío de formulario-->
-        <li class="button">
-            <button type="submit">Envíe su mensaje</button>
-        </li>
+                {% comment %} <li>
+                    <label for='Cadenas_paralelo'>Nº cadenas en paralelo:</label>
+                    <input type='number' id='Cadenas_paralelo' name='cadenas_paralelo' step='any'/>
+                </li> {% endcomment %}
 
 
-    </ul> 
-    
-</form>
+                <li>
+                    <h2><strong>Coste de la instalación.</strong></h2>
+                </li>
+
+                <!--Coste sistema FV-->
+                <li>
+                    <label for='Coste_Sistema'>Coste Instalación con IVA [€]:</label>
+                    <input type='number' id='Coste_Sistema' name='coste_sistema' step='0.01' min='0' />
+                </li>
+
+                <li>
+                    <label for='Subvencion_Sistema'>Subvencion recibida [€]:</label>
+                    <input type='number' id='Subvencion_Sistema_Sistema' name='subvencion_sistema' step='0.01' min='0' />
+                </li>
+
+                <li>
+                    <h2>Datos de consumo de su hogar o industria</h2>
+                </li>
+
+                <li>
+                    <label for="file">Suba el archivo de consumo en formato csv  </label>
+                    <input type="file" id="file" name="file">
+                </li>
+
+                <!--Botón de envío de formulario-->
+                <li class="button">
+                    <button type="submit">Calcular</button>
+                </li>
+            </ul> 
+        </form>
+    </div>
+</div>
 
 {% endblock %}

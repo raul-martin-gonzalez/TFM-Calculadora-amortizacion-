@@ -30,9 +30,9 @@
     </p>
     <!--<div id="dato-texto" data-dato="{{contexto1.dato_django}}"></div>-->
     
-    <table>
+    <table class="table">
         <caption>CONSUMO, PRODUCCIÓN, GASTO, AHORRO Y RADIACIÓN POR MES</caption>
-        <tr>
+        <tr class='Cabecera-tabla'>
             <th>MES</th>
             <th>CONSUMO (kWh)</th>
             <th>PRODUCCIÓN (kWh)</th>
@@ -66,11 +66,12 @@
     <div id='Chart_consumo' class='chart-container'></div>
     <div id='Bar_Chart_consumo' class='bar-chart-container'></div> {% endcomment %}
 
-    <div id="Datos_consumo_compacto" data-consumo="{{contexto4}}"></div>
-    <div id='Bar_Chart_consumo_produccion' class='bar-chart-container1'></div>
-
-    <div id='Bar_Chart_gasto_ahorro' class='bar-chart-container2'></div>
-
+    <div class="container_graficas_compactas"> 
+        <div id="Datos_consumo_compacto" data-consumo="{{contexto4}}"></div>
+        <div id='Bar_Chart_consumo_produccion' class='bar-chart-container1'></div>
+        <div id='Bar_Chart_gasto_ahorro' class='bar-chart-container2'></div>
+    </div>
+    
     <select id='consumo_produccion_mes'>
         <option value='01'> Enero </option>
         <option value="02">Febrero</option>
@@ -87,11 +88,24 @@
     </select>
 
     <button onclick="representacion_graficas()"> Mostrar Gráfica</button>
-    <div id="Datos_consumo_produccion_mes" data-consumo="{{contexto5}}"></div>
-    <div id='chart_consumo_produccion_mes' class='Chart_container_mes'></div>
-    <div id='chart_gasto_ahorro_mes' class='Chart_container_mes2'></div>
-  
-  
+    <div class="container_graficas_mensuales">
+        <div id="Datos_consumo_produccion_mes" data-consumo="{{contexto5}}"></div>
+        <div id='chart_consumo_produccion_mes' class='Chart_container_mes'></div>
+        <div id='chart_gasto_ahorro_mes' class='Chart_container_mes2'></div>
+    </div>
+
+    <label for="dateInput">Introduce una fecha:</label>
+    <input type="date" id="dateInput" value="2023-01-01">
+    <button onclick="represntacion_grafica_dia()">Mostrar día</button>
+
+    <div class="container_graficas_diarias">
+        <div id='chart_consumo_produccion_dia' class='Chart_container_dia'></div>
+        <div id='chart_gasto_ahorro_dia' class='Chart_container_dia'></div>
+    </div>
+
+    <div id="Datos_comparativa" data-comparativa="{{contexto6}}"></div>
+    <div id='chart_comparativa_placas' class='Chart_container_comparativa'></div>
+
 </div>  
     {% comment %} <script src="{% static 'solar_energy/JavaScript/Gráfico de consumo y producción.js' %}"></script>
     <script src="{% static 'solar_energy/JavaScript/Gráfico de barras consumo.js' %}"></script> {% endcomment %}
@@ -99,10 +113,19 @@
     <script src="{% static 'solar_energy/JavaScript/Gráfico gasto y ahorro compacto.js' %}"></script>
     <script src="{% static 'solar_energy/JavaScript/Gráfico consumo y producción por mes.js' %}"></script>
     <script src="{% static 'solar_energy/JavaScript/Gráfico gasto y ahorro mes.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico consumo y producción dia.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico gasto y ahorro dia.js' %}"></script>
+    <script src="{% static 'solar_energy/JavaScript/Gráfico comparativa.js' %}"></script>
+
     <script> 
         function representacion_graficas(){
             render_grafico_mes();
             render_gasto_ahorro_mes();
+        }
+
+        function represntacion_grafica_dia(){
+            render_grafico_dia()
+            render_grafico_ahorro_dia()
         }
     </script>
 {% endblock %}
