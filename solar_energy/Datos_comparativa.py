@@ -14,8 +14,7 @@ import matplotlib.pyplot as plt
 # longitud = -3.616536
 # nombre='Campus Alcobendas Universidad Europea'
 
-ruta = r'C:\Users\raulm\Desktop\MASTER\TFM\Precio_luz_2023.csv'
-df_precio_luz = pd.read_csv(ruta, sep=';', header=0, encoding='utf-8')
+df_precio_luz = pd.read_csv('solar_energy/Precio_luz_2023.csv', sep=';', header=0, encoding='utf-8')
 precio_luz = list(df_precio_luz['value'])
 # print(precio_luz)
 

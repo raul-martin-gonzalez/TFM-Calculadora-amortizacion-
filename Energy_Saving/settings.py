@@ -28,7 +28,6 @@ SECRET_KEY = 'django-insecure-=33u@#=64+&!km8^lbv%$l&)98fym(p@+t^&1rw7h!&t_&aclz
 DEBUG = True
 
 #Host
-ALLOWED_HOSTS = ["*"]
 CLOUDRUN_SERVICE_URL = 'https://app-django-opunkgc4ya-ew.a.run.app/'
 if CLOUDRUN_SERVICE_URL:
     ALLOWED_HOSTS = [urlparse(CLOUDRUN_SERVICE_URL).netloc]
