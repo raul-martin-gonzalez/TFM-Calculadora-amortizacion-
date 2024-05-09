@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     width: calc(100%-2*3vw);
-    height: 80vh;
+    height: auto;
     /*background: rgba(241, 238, 238, 0.904);*/
     border: solid rgb(193, 245, 6) 10px;
     /*padding: 20px; /* Añade un padding de 20px a todos los lados del contenedor */
@@ -13,16 +13,17 @@
 
 .container-video video {
     width: 100%;
-    
     object-fit: cover; /* Para mantener la relación de aspecto del video */
 }
 
 .container-formulario{
     padding-left: 3vh;
+    padding-right: 2vh;
 }
 
-.container-formulario ul{
-    list-style: none;
+.container-formulario button {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .container-video , .container-formulario{
@@ -30,7 +31,8 @@
     min-width: 300px; /* Define el ancho mínimo */
     box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
     height: 100%;
-    border: solid 1vh rgb(42, 6, 245)
+    border: solid 1vh rgb(42, 6, 245);
+    padding-top: 3vh;
 }
 
 @media (max-width: 1000px) {
@@ -43,4 +45,43 @@
         height: 50%; /* Cada subcontenedor ocupa el 50% de la altura del contenedor padre */
     }
 
+}
+
+.container-formulario ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+}
+
+.container-formulario ul li {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.container-formulario ul li label {
+    flex-basis: 30%; /* Anchura del label */
+    text-align: right;
+    margin-right: 1vw;
+}
+
+.container-formulario ul li input {
+    flex-basis: 70%; /* Anchura del input */
+}
+
+.container-formulario button {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #8680d4b1; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 1vh 2vh; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 2vh; /* Borde redondeado */
+    font-size: 1em; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.container-formulario button:hover {
+    background-color: #45a049; /* Cambia el color de fondo al pasar el ratón */
 }

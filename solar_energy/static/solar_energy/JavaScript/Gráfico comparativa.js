@@ -7,7 +7,7 @@ var data_comparativa = JSON.parse(data_comparativa_str);
 // console.log('Hola que tal ertre');
 // console.log(data);
 
-contenedor_grafica = document.getElementById('chart_comparativa_placas');
+contenedor_grafica_comparativa = document.getElementById('chart_comparativa_placas');
 
 function grafico_comparativa(container, props) {
     //Margen y dimensiones del gráfico
@@ -211,8 +211,8 @@ legend.selectAll("text")
 
 function render_comparativa(){
     grafico_comparativa(d3.select("#chart_comparativa_placas"), {
-      width: contenedor_grafica.clientWidth,
-      height: contenedor_grafica.clientHeight,
+      width: contenedor_grafica_comparativa.clientWidth,
+      height: contenedor_grafica_comparativa.clientHeight,
     });
   };
   

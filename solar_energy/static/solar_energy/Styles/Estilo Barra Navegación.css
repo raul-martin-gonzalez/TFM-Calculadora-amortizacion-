@@ -17,7 +17,7 @@ header{
     /*background-color:  #020202;*/
     display: flex;
     padding: 0 20px;
-    border-bottom:  4px solid #BA192C;
+    border-bottom:  4px solid #cecacb;
 }
 
 .nombre{
@@ -130,7 +130,7 @@ img {
     height: 600px !important;
 }
 
-@media screen and (max-width:700px){
+@media screen and (max-width:1100px){
     .menu-toggle{
         display: block;
     }
