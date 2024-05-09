@@ -19,7 +19,7 @@ steps:
       "app-django", 
       "--image=europe-west1-docker.pkg.dev/$PROJECT_ID/modelo/app-django:latest",
       "--allow-unauthenticated",
-      "--port=8080",
+      "--port=8000",
       "--region=europe-west1",
       "--project=$PROJECT_ID",
     ]
