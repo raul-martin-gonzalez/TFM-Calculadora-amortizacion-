@@ -22,5 +22,5 @@ COPY ./ ./
 # port where the Django app runs. 
 # Esta instrucción es para indicar que la aplicación está corriedo en el puerto 8000
 # start server  
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
 
