@@ -14,9 +14,6 @@ def inicio(request):
 def energia_fotovoltaica(request):
     return render(request, "solar_energy/Fotovoltaica.html")
 
-def precio_luz(request):
-    return render(request, "solar_energy/Precio_luz.html")
-
 def calculadora_amortizacion(request):
 
     if request.method == 'POST':
@@ -87,8 +84,6 @@ def calculadora_amortizacion(request):
 
     return render(request, "solar_energy/Calculadora.html") 
 
-def conceptos_teoricos(request):
-    return render(request, "solar_energy/Conceptos teóricos.html")
 
 def resultados(request, diccionario_variables):
     context = diccionario_variables
