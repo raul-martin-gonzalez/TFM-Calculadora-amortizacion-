@@ -6,6 +6,7 @@ from solar_energy.Datos_consumo_compactos import datos_consumo_compacto
 from solar_energy.Rendimiento_sistema_FV_conectado_red import modelo_fotovoltaico
 from solar_energy.Datos_comparativa import datos_comparativa
 import json
+import os
 
 # Create your views here.
 def inicio(request):
@@ -88,3 +89,17 @@ def calculadora_amortizacion(request):
 def resultados(request, diccionario_variables):
     context = diccionario_variables
     return render(request, "solar_energy/Resultados Amortización.html", context)
+
+
+def descargar_csv(request):
+    # Ruta al archivo CSV
+    ruta_archivo = 'solar_energy/Ejemplo Datos Consumo.csv'  # Reemplaza con la ruta real de tu archivo CSV
+    
+    # Verificar si el archivo existe
+    if os.path.exists(ruta_archivo):
+        with open(ruta_archivo, 'rb') as archivo:
+            response = HttpResponse(archivo.read(), content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="datos_consumo.csv"'
+            return response
+    else:
+        return HttpResponse("El archivo CSV no se encontró.", status=404)

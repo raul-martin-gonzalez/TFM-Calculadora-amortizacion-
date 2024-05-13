@@ -5,7 +5,7 @@
     width: calc(100%-2*3vw);
     height: auto;
     /*background: rgba(241, 238, 238, 0.904);*/
-    border: solid rgb(193, 245, 6) 10px;
+    /*border: solid rgb(193, 245, 6) 10px;*/
     /*padding: 20px; /* Añade un padding de 20px a todos los lados del contenedor */
     box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
     margin: 5vh 3vw;
@@ -31,7 +31,7 @@
     min-width: 300px; /* Define el ancho mínimo */
     box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
     height: 100%;
-    border: solid 1vh rgb(42, 6, 245);
+    /*border: solid 1vh rgb(42, 6, 245);*/
     padding-top: 3vh;
 }
 
@@ -84,4 +84,15 @@
 
 .container-formulario button:hover {
     background-color: #45a049; /* Cambia el color de fondo al pasar el ratón */
+}
+
+.container-formulario p{
+    width: 100%;
+    margin-top: 1.3vh;
+    margin-bottom: 1vh;
+}
+
+.container-formulario a{
+    color: rgb(8, 240, 8);
+    font-weight: bold;
 }

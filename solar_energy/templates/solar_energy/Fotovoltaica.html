@@ -13,7 +13,7 @@
 {% block content %}
     <div id="content" class='Contenido-fotovoltaica' >
         <h1>Energía Solar Fotovoltaica</h1>
-
+        <h2>Definición.</h2>
         <p>
             La energía solar fotovoltaica es una fuente de energía renovable,
             inagotable y limpia que transforma la radiación solar en electricidad,
@@ -26,11 +26,57 @@
         </p>
 
         <p> 
-            El dispositivo formado por el material semiconductor se denomina celda o célula fotovoltaica, la unión de varios
-            de estos dispositvos en serie permite obtener diferencias de potencial mayores. Las celdas pueden estar fabricadas
-            de silicio monocristalino, policristalino o amorfo, o bien de otros materiales semiconductores de capa fina. 
+            El dispositivo compuesto por material semiconductor se denomina celda o célula 
+            fotovoltaica. Al conectar varias de estas celdas en serie, se pueden obtener diferencias 
+            de potencial mayores. Las celdas pueden fabricarse con silicio monocristalino, policristalino 
+            o amorfo, así como con otros materiales semiconductores de capa fina. 
         </p>
 
+        <div class='celula-fotovoltaica'>
+        <img src="{% static 'solar_energy/Imagenes/celula-fotovoltaica.jpg' %}" >
+        <p>Célula fotovoltaica.</p>
+        </div>
+
+        <h2>Tipos de instalaciones fotovoltaicas.</h2>
+        <p>
+        Existen dos tipos principales de instalaciones fotovoltaicas: aquellas que están conectadas a la red eléctrica 
+        y las que no lo están. En este contexto, nos enfocaremos en la primeras, las cuales se dividen a su vez en dos categorías:
+        </p>
+        <ul>
+            <li>Centrales fotovoltaicas: Estas instalaciones dirigen toda la energía producida hacia la red eléctrica.</li>
+            <li>Instalaciones de autoconsumo: En este caso, la electricidad generada se consume directamente por el propietario
+                (por ejemplo, una vivienda). En caso de que no se consuma toda la energía producida, el excedente se inyecta en la red. 
+                Además, el propietario obtiene electricidad de la red cuando la generación solar no es suficiente para cubrir la demanda.
+            </li>
+        </ul>
+
+        <p>En cuanto a las instalaciones de autoconsumo, la calculadora de amortización desarrollada en esta aplicación
+            web se enfoca específicamente en aquellas instaladas en viviendas, cuyo esquema y elementos puede verse en las Figuras 1 y 2 respectivamente.
+             Este esquema es similar para los negocios. En este esquema:</p>
+        <ul>
+            <li>Las placas solares generan elctricidad en corriente continua</li>
+            <li>El inversor transforma la electricidad en corriente alterna, que puede ser utilizada por los electrodomésticos</li>
+            <li>Los demas elementos son dispositivos de medición o protección</li>
+        </ul>
+
+        <div class='Esquemas-instalacion'>
+            <div class='Esquema2'>
+                <img src="{% static 'solar_energy/Imagenes/Instalación_fotovoltaica_casa.jpg' %}"> 
+                <p>Figura1. Esquema general instalación fotovoltaica.</p>
+            </div>
+            <div class='Esquema1'>
+                <img src="{% static 'solar_energy/Imagenes/Esquema_instalación_fotovoltaica.jpg' %}">
+                <p>Figura 2. Componentes instalación fotovoltaica.</p>
+            </div>
+        </div>
+
+        <h2>Placas solares</h2>
+        <p>Un panel solar o módulo fotovoltaico es una estructura que alberga múltiples células fotovoltaicas, 
+            interconectadas tanto en serie como en paralelo. Su objetivo principal es generar energía eléctrica
+             a partir de la radiación solar.  Esta configuración incrementa la eficiencia y la capacidad 
+            de generación de energía del panel, permitiendo así aprovechar de manera más efectiva la energía solar disponible.        
+        </p>
+        
         <div class="table-container">
             <table>
                 <tr> 
@@ -83,19 +129,7 @@
             </table>
         </div>
 
-        <h2>Tipos de instalaciones fotovoltaicas.</h2>
-        <p>
-        Existen dos tipos de instalaciones fotovoltaicas: las que están conectadas a la red y las que no. Nos centraremos
-        en las primeras, dentro de estas existen, a su vez, otros dos clases:
-        </p>
-        <ul>
-            <li>Centrales fotovoltaicas: son aquellas donde toda la energía producida se vierte a la red eléctrica.</li>
-            <li>Insatalaciones de autoconsumo: son aquellas donde la electricidad producida es consumida por el propio productor 
-                (pot ejemplo, una vivienda) y en caso de no consumir toda, la parte no consumida se vierte a la red. Al mismo tiempo,
-                el productor toma la energía que necesesita para cubrir su demanda cuando la instalación no le suministra suficiente.
-            </li>
-        </ul>
-    
+
     </div>
 
     

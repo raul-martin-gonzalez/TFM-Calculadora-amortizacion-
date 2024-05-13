@@ -20,6 +20,18 @@
     </div>
 
     <div class="container-formulario">
+        <p>Puede obtener los datos de su consumo en el área privada del distribuidor eléctrico de su zona:
+            <a href="https://www.i-de.es/">Iberdrola<a>,
+            <a href="https://www.edistribucion.com/es/index.html">Endesa<a>,
+            <a href="https://www.ufd.es/">Unión Fenosa<a>,
+            <a href="https://www.eredesdistribucion.es/?r=1">E-Redes EDP<a>,
+            <a href="https://www.viesgodistribucion.com/inicio">Viesgo<a>. 
+        </p>
+
+        <p><a href="/descargar_csv">Datos de ejemplo de consumo de una vivienda unifamiliar de 4 personas.</a></p>
+
+        <h1><u>Calculadora</u></h1>
+
         <form action="/calculadora_amortizacion" method="post" enctype="multipart/form-data">{% csrf_token %}
             <ul>
                 <li>

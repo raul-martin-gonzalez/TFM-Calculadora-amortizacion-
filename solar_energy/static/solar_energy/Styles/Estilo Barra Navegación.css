@@ -135,7 +135,7 @@ img {
     }
 }
 
-@media screen and (max-width:1100px){
+@media screen and (max-width:1400px){
     .menu-toggle{
         display: block;
         line-height: 10vh;
@@ -177,7 +177,7 @@ img {
     }
 
     .nombre {
-        font-size: 2vw;
+        font-size: 1.7vw;
     }
 
     header{

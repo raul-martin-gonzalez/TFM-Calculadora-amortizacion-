@@ -1,24 +1,45 @@
 .Contenido-fotovoltaica{
-  font-size: 1.5vw;
+  font-size: 4vh;
   color: #f7f2f2ea;
-  text-align: justify;
+  text-align: justify; /* Mantenemos el justificado para el texto */
   width: 87vw;
-  margin: 4vh 4vw;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  margin: 2vh auto;
+  max-width: 100%;
 }
 
 .Contenido-fotovoltaica p{
-  margin-top: 4vh;
+  margin-top: 1.3vh;
 }
 
-.Contenido-fotovoltaica h2{
-  margin-top: 4vh;
+.Contenido-fotovoltaica h1 {
+  text-align: center;
 }
+.Contenido-fotovoltaica h2 {
+  text-align: left; /* Alinea los elementos h2 a la izquierda */
+  margin-top: 1.5vh;
+}
+
+.celula-fotovoltaica {
+  text-align: center; /* Centra horizontalmente el contenido */
+  margin-top: 1.3vh;
+  
+}
+
+.celula-fotovoltaica img {
+  max-width: 50%;
+  display: block; /* Para que la imagen ocupe todo el ancho disponible */
+  margin: 0 auto; /* Centra horizontalmente la imagen dentro del contenedor */
+}
+
+.celula-fotovoltaica p {
+  font-style: italic; /* Aplica cursiva al texto */
+  margin-top: 0.5vh;
+  font-size: 3vh;
+}
+
+
 .Contenido-fotovoltaica ul{
-  margin-top: 4vh;
+  margin-top: 1.3vh;
   padding: 0 2vw;
 }
 
@@ -28,7 +49,7 @@
 
 .table-container{
   width: 70%;
-  margin: 2vh;
+  margin: 2% auto;
   background-color: rgb(236, 133, 7);
 }
 
@@ -39,7 +60,7 @@ table {
 }
 
 th, td {
-  border: 1px solid #0f0f0f; /* Define un borde para las celdas */
+  border-bottom: 1px solid #0f0f0f; /* Define un borde para las celdas */
   padding: 8px ; /* Añade espacio interno dentro de las celdas */
   text-align: left; /* Alinea el texto a la izquierda */
 }
@@ -67,21 +88,82 @@ th {
   display: block;
 }
 
+
+.Esquemas-instalacion {
+  width: 100%;
+  max-width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5vh auto;
+}
+
+.Esquema1{
+  width: 40%;
+}
+
+.Esquema2 {
+  width: 60%;
+}
+
+.Esquema1 p,
+.Esquema2 p{
+  font-style: italic; /* Aplica cursiva al texto */
+  margin-top: 0.5vh;
+  text-align: center;
+  font-size: 3vh;
+}
+
+.Esquema1 img,
+.Esquema2 img {
+  width: 100%;
+  height: auto;
+}
+
+.Esquema2 img {
+  padding-right: 2%; /* Agrega un margen izquierdo para separar la imagen en Esquema2 */
+}
+
+.Esquema1 img{
+  padding-left: 2%;
+}
+
+
 @media (max-width: 1100px)
 {
+  .Contenido-fotovoltaica{
+    font-size: 4vw;
+  }
+
+  .celula-fotovoltaica p, .Esquema1 p,
+  .Esquema2 p{ 
+    font-size: 3vw;
+  }
   .table-container{
     width: 100%;
+    font-size: 2.5vw;
   }
 
   .descripcion{
-    width: 50vw;
+    width: 45vw;
   }
   
   .nombre-table{
-    max-width: 15vw;
+    max-width: 20vw;
   }
   
   .imagen{
     max-width: 35vw;
   }
+
+  .Esquemas-instalacion {
+    flex-direction: column;
+  }
+  
+  .Esquema1,
+  .Esquema2 {
+    width: 100%;
+    margin-top: 1.2vh;
+  }
+
+  
 }
