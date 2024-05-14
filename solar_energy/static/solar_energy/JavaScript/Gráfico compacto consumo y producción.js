@@ -2,10 +2,10 @@ contenedor_datos=document.getElementById('Datos_consumo_compacto')
 
 datos = contenedor_datos.getAttribute('data-consumo')
 
-console.log(datos)
+
 
 var datos_consumo = JSON.parse(datos);
-/*document.write(datos_consumo);*/
+
 
 var meses = [];
 var consumos = [];
@@ -20,12 +20,6 @@ for (var i = 0; i < datos_consumo.length; i++) {
   consumos.push(consumo);
   produccion.push(produc);
 }
-
-console.log(meses)
-console.log(consumos)
-
-//var produccion = [210000, 230000, 250000, 270000, 290000, 310000, 330000, 350000, 370000, 390000, 210000, 230000];
-
 
 contenedor = document.getElementById('Bar_Chart_consumo_produccion')
 
@@ -150,7 +144,7 @@ function myResponsiveComponent1(container, props){
     .attr("y", d => yScale(d))
       .attr("width", xScale.bandwidth()/2)
       .attr("height", function(d) { return height - yScale(d); })
-      .style("fill", "blue");
+      .style("fill", "steelblue");
 
 
 // Agregar leyenda
@@ -163,7 +157,7 @@ legend = legend.enter().append("g")
 // Datos de la leyenda
 const legendData = [
 { label: "Consumo", color: "red" },
-{ label: "Producción", color: "blue" }
+{ label: "Producción", color: "steelblue" }
 ];
 
 // Crear cuadrados de color y etiquetas de texto para la leyenda
@@ -201,5 +195,3 @@ window.addEventListener('resize', render1);
 
 
   
-console.log(contenedor.clientWidth);
-console.log(contenedor.clientHeight);

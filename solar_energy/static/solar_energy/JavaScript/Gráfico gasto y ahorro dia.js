@@ -11,22 +11,10 @@ function filtrarDatosPorDia(diaSeleccionado) {
     });
 }
 
-// function filterData() {
-//     const dateInput = document.getElementById('dateInput').value;
-//     console.log(dateInput);
-//     console.log(typeof dateInput)
-//     var datosFiltrados = filtrarDatosPorDia(dateInput);
-//     console.log(datosFiltrados)
-  
-// }
-
 
 function grafico_gasto_ahorro_dia(container, props) {
     const dateInput = document.getElementById('dateInput').value;
-    console.log(dateInput);
-    console.log(typeof dateInput)
     var datosFiltrados = filtrarDatosPorDia(dateInput);
-    console.log(datosFiltrados)
 
     var fechas = [];
     var gasto_no_placas = [];
@@ -81,7 +69,7 @@ function grafico_gasto_ahorro_dia(container, props) {
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
         .attr("class", "chart-title")
-        .text("Consumo vs. Producción Mes") // Título del gráfico
+        .text(dateInput + ": Gasto vs. Ahorro") // Título del gráfico
         .merge(titulo)
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
@@ -104,7 +92,7 @@ function grafico_gasto_ahorro_dia(container, props) {
     let etiquetay = g.selectAll('.y-axis-label').data([null]); 
     etiquetay = etiquetay.enter().append("text")
         .attr("class", "y-axis-label")
-        .text("Energía (kWh)") // Etiqueta del eje Y
+        .text("€") // Etiqueta del eje Y
         .merge(etiquetay)
         .attr("transform", "rotate(-90)")
         .attr("x", - (props.height - margin.top - margin.bottom) / 2)
@@ -150,7 +138,7 @@ function grafico_gasto_ahorro_dia(container, props) {
         .attr("class", "linea1")
     .merge(grafico)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "red")
         .attr("stroke-width", 2)
         .attr("d", d3.line()
             .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
@@ -163,7 +151,7 @@ function grafico_gasto_ahorro_dia(container, props) {
         .attr("class", "linea2")
     .merge(grafico1)
         .attr("fill", "none")
-        .attr("stroke", "red")
+        .attr("stroke", "steelblue")
         .attr("stroke-width", 2)
         .attr("d", d3.line()
             .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
@@ -179,8 +167,8 @@ function grafico_gasto_ahorro_dia(container, props) {
 
     // Datos de la leyenda
     const legendData = [
-    { label: "Gasto sin placas", color: "steelblue" },
-    { label: "Ahorro con placas", color: "red" }
+    { label: "Gasto sin placas", color: "red" },
+    { label: "Ahorro con placas", color: "steelblue" }
     ];
 
     // Crear cuadrados de color y etiquetas de texto para la leyenda

@@ -2,10 +2,7 @@ contenedor_datos=document.getElementById('Datos_consumo_compacto')
 
 datos = contenedor_datos.getAttribute('data-consumo')
 
-console.log(datos)
-
 var datos_consumo = JSON.parse(datos);
-/*document.write(datos_consumo);*/
 
 
 var gasto_no_placas = [];
@@ -21,13 +18,6 @@ for (var i = 0; i < datos_consumo.length; i++) {
   ahorros.push(ahorro);
   gasto_si_placas.push(gasto_si);
 }
-
-console.log(gasto_no_placas)
-console.log(ahorros)
-console.log(gasto_si_placas)
-
-//var produccion = [210000, 230000, 250000, 270000, 290000, 310000, 330000, 350000, 370000, 390000, 210000, 230000];
-
 
 contenedor = document.getElementById('Bar_Chart_gasto_ahorro')
 
@@ -72,7 +62,7 @@ function gasto_ahorro(container, props){
   let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
   titulo = titulo.enter().append("text")
       .attr("class", "chart-title")
-      .text("GASTO vs. AHORRO") // Título del gráfico
+      .text("Gasto vs. Ahorro") // Título del gráfico
     .merge(titulo)
       .attr("x", (props.width - margin.left - margin.right) / 2)
       .attr("y", margin.top / 2)
@@ -152,7 +142,7 @@ function gasto_ahorro(container, props){
     .attr("y", d => yScale(d))
       .attr("width", xScale.bandwidth()/2)
       .attr("height", function(d) { return height - yScale(d); })
-      .style("fill", "blue");
+      .style("fill", "steelblue");
 
 
 // Agregar leyenda
@@ -165,7 +155,7 @@ legend = legend.enter().append("g")
 // Datos de la leyenda
 const legendData = [
 { label: "Gasto sin placas", color: "red" },
-{ label: "Ahorro con placas", color: "blue" }
+{ label: "Ahorro con placas", color: "steelblue" }
 ];
 
 // Crear cuadrados de color y etiquetas de texto para la leyenda
@@ -203,5 +193,3 @@ window.addEventListener('resize', render2);
 
 
   
-console.log(contenedor.clientWidth);
-console.log(contenedor.clientHeight);

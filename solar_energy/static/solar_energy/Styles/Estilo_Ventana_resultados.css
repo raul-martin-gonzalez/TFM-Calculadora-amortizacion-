@@ -7,12 +7,6 @@
     align-items: center;
     margin: 2%;
     font-size: 2vw;
-    /* Establecer un gradiente de fondo
-    background: radial-gradient(circle at center, #ffdb58 5%, transparent 10%);
-    /* Tamaño del patrón de soles */
-    /*background-size: 50px 50px; /* Ajusta según el tamaño deseado */
-    /* Repetir el patrón en toda la página */
-    /*background-repeat: repeat; */
 }
 
 .informe-resultados p{
@@ -22,20 +16,7 @@
 }
 
 /*https://www.youtube.com/watch?v=wuUSVEcK-kM*/
-/* .chart-container{
-    
-    width: 100%;
-    height: 100%;    
-    background: rgb(234, 18, 18);
-    border: solid rgb(245, 70, 6) 10px;
-}
 
-#Bar_Chart_consumo{
-    width: 80vh;
-    height: 60vh;
-    background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(245, 70, 6) 10px;
-} */
 
 .table {
     border-collapse: collapse;
@@ -63,7 +44,7 @@
     width: 100%;
     height: 60vh;
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(193, 245, 6) 10px;
+    /*border: solid rgb(193, 245, 6) 10px;*/
 }
 
 #Bar_Chart_consumo_produccion, #Bar_Chart_gasto_ahorro {
@@ -77,7 +58,7 @@
     /* width: 80vh;
     height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(22, 245, 6) 10px;
+    /*border: solid rgb(22, 245, 6) 10px;*/
 }
 
 
@@ -85,11 +66,12 @@
     /* width: 80vh;
     height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(219, 39, 39) 10px;
+    /*border: solid rgb(219, 39, 39) 10px;*/
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .container_graficas_compactas {
+        min-height: 60%;
         height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
     }
 
@@ -105,7 +87,7 @@
     width: 100%;
     height: 60vh;
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(193, 245, 6) 10px;
+    /*border: solid rgb(193, 245, 6) 10px;*/
 }
 
 #chart_consumo_produccion_mes, #chart_gasto_ahorro_mes {
@@ -119,18 +101,19 @@
     /* width: 80vh;
     height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(245, 70, 6) 10px;
+    /*border: solid rgb(245, 70, 6) 10px;*/
 }
 
 #chart_gasto_ahorro_mes{
     /* width: 80vh;
     height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(22, 245, 6) 10px;
+    /*border: solid rgb(22, 245, 6) 10px;*/
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .container_graficas_mensuales {
+        min-height: 60%;
         height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
     }
 
@@ -146,7 +129,7 @@
     width: 100%;
     height: 60vh;
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(193, 245, 6) 10px;
+    /*border: solid rgb(193, 245, 6) 10px;*/
 }
 
 #chart_consumo_produccion_dia, #chart_gasto_ahorro_dia {
@@ -160,18 +143,19 @@
     /* width: 80vh;
     height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(245, 70, 6) 10px;
+    /*border: solid rgb(245, 70, 6) 10px;*/
 }
 
 #chart_gasto_ahorro_dia{
     /* width: 80vh;
     height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(22, 245, 6) 10px;
+    /*border: solid rgb(22, 245, 6) 10px;*/
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .container_graficas_diarias {
+        min-height: 60%;
         height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
     }
 
@@ -186,5 +170,12 @@
     width: 80vh;
     height: 60vh;
     background: rgba(241, 238, 238, 0.904);
-    border: solid rgb(22, 245, 6) 10px;
+    /*border: solid rgb(22, 245, 6) 10px;*/
+}
+
+@media (max-width: 900px) {
+    #chart_comparativa_placas{
+        width: 100%;
+        height: auto;
+    }
 }

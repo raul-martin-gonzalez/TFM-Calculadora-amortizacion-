@@ -5,23 +5,7 @@ contenedor_datos = document.getElementById('Datos_consumo_produccion_mes');
 var datos_json = contenedor_datos.getAttribute('data-consumo');
 
 var datos_consumo = JSON.parse(datos_json)
-//console.log(datos_consumo);
 
-
-// var datos = [
-//     { mes: "01", valor: 'Mes de Enero fue seleccionado' },
-//     { mes: "02", valor: 'Mes de Febrero fue seleccionado' },
-//     { mes: "03", valor: 'Mes de Marzo fue seleccionado' },
-//     { mes: "04", valor: 'Mes de Abril fue seleccionado' },
-//     { mes: "05", valor: 'Mes de Mayo fue seleccionado' },
-//     { mes: "06", valor: 'Mes de Junio fue seleccionado' },
-//     { mes: "07", valor: 'Mes de Julio fue seleccionado' },
-//     { mes: "08", valor: 'Mes de Agosto fue seleccionado' },
-//     { mes: "09", valor: 'Mes de Septiembre fue seleccionado' },
-//     { mes: "10", valor: 'Mes de Octubre fue seleccionado' },
-//     { mes: "11", valor: 'Mes de Noviembre fue seleccionado' },
-//     { mes: "12", valor: 'Mes de Diciembre fue seleccionado' },
-// ];
 
 function filtrarDatosPorMes(mesSeleccionado) {
     return datos_consumo.filter(function(d) {
@@ -50,13 +34,6 @@ function gasto_ahorro_mes(container, props) {
         gasto_si_placas.push(gasto_si)
       }
 
-    // console.log(fechas);
-    // console.log(consumos);
-
-    //contenedor_grafica.textContent = datosFiltrados[0].CONSUMO_Wh
-    
-    // var Fecha = ['1:00', '2:00', '3:00', '4:00' ,'5:00' ,'6:00' ,'7:00' ,'8:00', '9:00', '10:00']
-    // var consumo = [398, 1176, 959, 264, 212, 213, 213, 193, 239, 300]
 
     //Margen y dimensiones del gráfico
     var margin = {top: 0.1 * props.height, right: 0.04 * props.width, bottom: 0.2* props.height, left: 0.14 * props.width};
@@ -89,12 +66,28 @@ function gasto_ahorro_mes(container, props) {
         .merge(g)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
+    var nombresMeses = {
+        "01": "Enero:",
+        "02": "Febrero:",
+        "03": "Marzo:",
+        "04": "Abril:",
+        "05": "Mayo:",
+        "06": "Junio:",
+        "07": "Julio:",
+        "08": "Agosto:",
+        "09": "Septiembre:",
+        "10": "Octubre:",
+        "11": "Noviembre:",
+        "12": "Diciembre:"
+        };
+    
+    var nombreMes = nombresMeses[mesSeleccionado];
     
     // Título del gráfico
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
         .attr("class", "chart-title")
-        .text("Gasto vs. Consumo Mes") // Título del gráfico
+        .text(nombreMes + " Gasto vs. Ahorro") // Título del gráfico
         .merge(titulo)
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
@@ -162,7 +155,7 @@ function gasto_ahorro_mes(container, props) {
         .attr("class", "linea1")
     .merge(grafico)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "red")
         .attr("stroke-width", 2)
         .attr("d", d3.line()
             .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
@@ -175,7 +168,7 @@ function gasto_ahorro_mes(container, props) {
         .attr("class", "linea2")
     .merge(grafico1)
         .attr("fill", "none")
-        .attr("stroke", "red")
+        .attr("stroke", "steelblue")
         .attr("stroke-width", 2)
         .attr("d", d3.line()
             .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
@@ -190,8 +183,8 @@ legend = legend.enter().append("g")
 
 // Datos de la leyenda
 const legendData = [
-{ label: "Gasto sin placas", color: "steelblue" },
-{ label: "Ahorros con placas", color: "red" }
+{ label: "Gasto sin placas", color: "red" },
+{ label: "Ahorro con placas", color: "steelblue" }
 ];
 
 // Crear cuadrados de color y etiquetas de texto para la leyenda
