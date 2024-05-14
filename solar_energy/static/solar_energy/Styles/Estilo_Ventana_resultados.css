@@ -55,24 +55,20 @@
 }
 
 #Bar_Chart_consumo_produccion{
-    /* width: 80vh;
-    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     /*border: solid rgb(22, 245, 6) 10px;*/
 }
 
 
 #Bar_Chart_gasto_ahorro{
-    /* width: 80vh;
-    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     /*border: solid rgb(219, 39, 39) 10px;*/
 }
 
 @media (max-width: 900px) {
     .container_graficas_compactas {
-        min-height: 60%;
-        height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
+        min-height: 200vh;
+        /*height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
     }
 
     #Bar_Chart_consumo_produccion, #Bar_Chart_gasto_ahorro {
@@ -98,23 +94,19 @@
 }
 
 #chart_consumo_produccion_mes{
-    /* width: 80vh;
-    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     /*border: solid rgb(245, 70, 6) 10px;*/
 }
 
 #chart_gasto_ahorro_mes{
-    /* width: 80vh;
-    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     /*border: solid rgb(22, 245, 6) 10px;*/
 }
 
 @media (max-width: 900px) {
     .container_graficas_mensuales {
-        min-height: 60%;
-        height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
+        min-height: 200vh;
+        /*height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
     }
 
     #chart_consumo_produccion_mes, #chart_gasto_ahorro_mes {
@@ -140,23 +132,19 @@
 }
 
 #chart_consumo_produccion_dia{
-    /* width: 80vh;
-    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     /*border: solid rgb(245, 70, 6) 10px;*/
 }
 
 #chart_gasto_ahorro_dia{
-    /* width: 80vh;
-    height: 60vh; */
     background: rgba(241, 238, 238, 0.904);
     /*border: solid rgb(22, 245, 6) 10px;*/
 }
 
 @media (max-width: 900px) {
     .container_graficas_diarias {
-        min-height: 60%;
-        height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
+        min-height: 200vh;
+        /*height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
     }
 
     #chart_consumo_produccion_dia, #chart_gasto_ahorro_dia {
@@ -176,6 +164,7 @@
 @media (max-width: 900px) {
     #chart_comparativa_placas{
         width: 100%;
-        height: auto;
+        height: 80vh;
     }
 }
+
