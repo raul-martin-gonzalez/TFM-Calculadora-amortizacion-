@@ -13,11 +13,14 @@
 
 {% block content %}
 <div class='informe-resultados'>
+    <div class="consejo">
+        <p>* En dispositivos móvil, poner la pantalla en horizontal para una correcta visualización de las gráficas y tablas</p>
+    </div>
     <h2>Informe Amortización Placas Solares</h2>
     <p id='mensaje advertencia'>Salvo aclaración expresa todos las catidades en € están sin IVA</p>
     <p>Nombre de la instalación: {{contexto1.name}}</p>
     <p>Coordenadas: {{contexto1.latitud}} , {{contexto1.longitud}}</p>
-    <p>La instalación se compone {{contexto1.N_placas}} módulos conectados en serie por cadena y {{contexto1.N_cadenas}} cadenas conectadas en paralelo</p>
+    <p>La instalación se compone de {{contexto1.N_placas}} placas solares</p>
     <p>Según el coste proporcionado si tenemos en cuenta el ahorro sin IVA
         producido por la instalación, tardaría en amortizar la instalación {{contexto3.Amortizacion}}
         años. 
@@ -68,31 +71,36 @@
         <div id='Bar_Chart_gasto_ahorro' class='bar-chart-container2'></div>
     </div>
     
-    <select id='consumo_produccion_mes'>
-        <option value='01'> Enero </option>
-        <option value="02">Febrero</option>
-        <option value="03">Marzo</option>
-        <option value="04">Abril</option>
-        <option value="05">Mayo</option>
-        <option value="06">Junio</option>
-        <option value="07">Julio</option>
-        <option value="08">Agosto</option>
-        <option value="09">Septiembre</option>
-        <option value="10">Octubre</option>
-        <option value="11">Noviembre</option>
-        <option value="12">Diciembre</option>
-    </select>
+    <div class="Seleccion_mes">
+        <select id='consumo_produccion_mes'>
+            <option value='01'> Enero </option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        <button onclick="representacion_graficas()"> Mostrar Gráfica</button>
+</div>
 
-    <button onclick="representacion_graficas()"> Mostrar Gráfica</button>
     <div class="container_graficas_mensuales">
         <div id="Datos_consumo_produccion_mes" data-consumo="{{contexto5}}"></div>
         <div id='chart_consumo_produccion_mes' class='Chart_container_mes'></div>
         <div id='chart_gasto_ahorro_mes' class='Chart_container_mes2'></div>
     </div>
 
-    <label for="dateInput">Introduce una fecha:</label>
-    <input type="date" id="dateInput" value="2023-01-01">
-    <button onclick="represntacion_grafica_dia()">Mostrar día</button>
+
+    <div class="Seleccion_dia">
+        <label for="dateInput">Introduce una fecha:</label>
+        <input type="date" id="dateInput" value="2023-01-01">
+        <button onclick="represntacion_grafica_dia()">Mostrar día</button>
+    </div>
 
     <div class="container_graficas_diarias">
         <div id='chart_consumo_produccion_dia' class='Chart_container_dia'></div>

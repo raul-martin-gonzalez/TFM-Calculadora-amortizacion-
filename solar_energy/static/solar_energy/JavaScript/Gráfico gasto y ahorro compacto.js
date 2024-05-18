@@ -26,7 +26,7 @@ function gasto_ahorro(container, props){
   //console.log(props.width);
   //console.log(props.height);
   // Arreglo de meses
-  var etiqueta_meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  var etiqueta_meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
   //Define margenes y dimensiones del gráfico
   var margin = {top: 0.1 * props.height, right: 0.04 * props.width, bottom: 0.2* props.height, left: 0.14 * props.width};
@@ -57,7 +57,13 @@ function gasto_ahorro(container, props){
     .merge(g)
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  
+
+  let minDimension = Math.min(props.width, props.height);
+  let fontSize;
+  fontSize = minDimension * 0.033;
+  sizetitle = minDimension * 0.08;
+  sizeaxis = minDimension * 0.05; 
+
   // Título del gráfico
   let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
   titulo = titulo.enter().append("text")
@@ -67,7 +73,7 @@ function gasto_ahorro(container, props){
       .attr("x", (props.width - margin.left - margin.right) / 2)
       .attr("y", margin.top / 2)
       .attr("text-anchor", "middle")
-      .style("font-size", "5vh");
+      .style("font-size", sizetitle + 'px');
       
   // Etiqueta del eje X
   let etiquetax = g.selectAll('.x-axis-label').data([null]);
@@ -78,7 +84,7 @@ function gasto_ahorro(container, props){
       .attr("x", (props.width - margin.left - margin.right) / 2)
       .attr("y", props.height - margin.bottom)
       .attr("text-anchor", "middle")
-      .style("font-size", "3vh");
+      .style("font-size", sizeaxis + 'px');
       
     
   // Etiqueta del eje Y
@@ -89,13 +95,11 @@ function gasto_ahorro(container, props){
     .merge(etiquetay)
       .attr("transform", "rotate(-90)")
       .attr("x", - (props.height - margin.top - margin.bottom) / 2)
-      .attr("y", -(margin.left / 4))
+      .attr("y", -(margin.left / 2))
       .attr("dy", "-1.5vh")
       .attr("text-anchor", "middle")
-      .style("font-size", "3vh");
+      .style("font-size", sizeaxis + 'px');
     
-    
-  //console.log(data)
 
    // Escala para el eje X (barras)
   const xScale = d3.scaleBand()
@@ -108,19 +112,22 @@ function gasto_ahorro(container, props){
       .attr('class', 'x-axis1')
     .merge(xAxisG)
       .attr('transform', `translate(0, ${height})`);
-      xAxisG.call(xAxis);
+    xAxisG.call(xAxis)
+      .style('font-size', fontSize + 'px');;
 
 
+  maximoTotal = Math.max(d3.max(gasto_no_placas), d3.max(ahorros))*1.2;
   // Escala para el eje Y y Agrega el eje Y (altura de las barras)
   const yScale = d3.scaleLinear()
-    .domain([0, d3.max(gasto_no_placas)*1.2])
+    .domain([0, maximoTotal])
     .range([height, 0]);
   const yAxis = d3.axisLeft(yScale);
   let yAxisG = g.selectAll('.y-axis1').data([null]);
     yAxisG = yAxisG.enter().append('g')
       .attr('class', 'y-axis1')
     .merge(yAxisG);
-      yAxisG.call(yAxis);
+    yAxisG.call(yAxis)
+      .style('font-size', fontSize + 'px');;
 
 
     // Crea las barras

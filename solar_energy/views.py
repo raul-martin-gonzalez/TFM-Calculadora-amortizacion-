@@ -18,14 +18,11 @@ def energia_fotovoltaica(request):
 def calculadora_amortizacion(request):
 
     if request.method == 'POST':
-        # name = request.POST['name_instalacion']
-        # altitud = request.POST['altitud']
-        # longitud = request.POST['longitud']
+
         datos_consumo = request.FILES['file']
         
         df1 = pd.read_csv(datos_consumo, header=0, sep=';', encoding='utf-8')
         df=df1.rename(columns={'FECHA-HORA':'FECHA_HORA', 'CONSUMO Wh':'CONSUMO_Wh'})
-        #datos = df[0:20].to_dict(orient='records')
         
         datos_json = df[0:20].to_json(orient='records')
 
@@ -34,24 +31,19 @@ def calculadora_amortizacion(request):
             'latitud': request.POST['latitud'],
             'longitud': request.POST['longitud'],
             'N_placas': request.POST['placas_cadena'],
-            #'N_cadenas': request.POST['cadenas_paralelo'],
             'Coste': request.POST['coste_sistema'],
-            # 'dato_django': "Dato obtenido a través de django"
         }
-
-                
+       
         datos_radiacion, datos_produccion = modelo_fotovoltaico(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(dic_var['N_placas']))
        
         datos_precio_luz = pd.read_csv('solar_energy/Precio_luz_2023.csv', sep=';', header=0, encoding='utf-8')
         
-
         consumo_compacto, consumo_mes = datos_consumo_compacto(df1, datos_radiacion, datos_produccion, datos_precio_luz)
         consumo_compacto_json = consumo_compacto.to_json(orient='records')
         consumo_mes_json = consumo_mes.to_json(orient='records')
         datos_tabla = consumo_compacto.to_dict(orient='records')
         pd.options.display.width = 500
        
-
         dic_totales = {
             'total_consumo': (consumo_compacto['CONSUMO_Wh'].sum()).round(2),
             'total_producción': (consumo_compacto['Produccion'].sum()).round(2), 
@@ -66,11 +58,9 @@ def calculadora_amortizacion(request):
         dic_totales['Amortizacion_IVA']=(float(dic_var['Coste'])/(dic_totales['total_ahorro']*1.21)).round(2)
         dic_totales['Beneficio_IVA'] = ((25-dic_totales['Amortizacion_IVA'])*(dic_totales['total_ahorro']*1.21)).round(2)
         
-
         data_comparativa = datos_comparativa(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(request.POST['coste_sistema']), float(request.POST['subvencion_sistema']))
         data_comparativa_json = json.dumps(data_comparativa)
         
-
         return resultados(request, {'contexto1': dic_var, 'contexto2': datos_tabla, "contexto3": dic_totales , "contexto4": consumo_compacto_json, 'contexto5':consumo_mes_json, 'contexto6':data_comparativa_json})
 
     return render(request, "solar_energy/Calculadora.html") 
@@ -93,3 +83,4 @@ def descargar_csv(request):
             return response
     else:
         return HttpResponse("El archivo CSV no se encontró.", status=404)
+    

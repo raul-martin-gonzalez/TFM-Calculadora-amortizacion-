@@ -83,6 +83,12 @@ function gasto_ahorro_mes(container, props) {
     
     var nombreMes = nombresMeses[mesSeleccionado];
     
+    let minDimension = Math.min(props.width, props.height);
+    let fontSize;
+    fontSize = minDimension * 0.028;
+    sizetitle = minDimension * 0.08;
+    sizeaxis = minDimension * 0.05; 
+
     // Título del gráfico
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
@@ -92,7 +98,7 @@ function gasto_ahorro_mes(container, props) {
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
         .attr("text-anchor", "middle")
-        .style("font-size", "5vh");
+        .style("font-size", sizetitle + 'px');
     
     // Etiqueta del eje X
     let etiquetax = g.selectAll('.x-axis-label').data([null]);
@@ -103,7 +109,7 @@ function gasto_ahorro_mes(container, props) {
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", props.height - margin.bottom)
         .attr("text-anchor", "middle")
-        .style("font-size", "3vh");
+        .style("font-size", sizeaxis + 'px');
 
     
     // Etiqueta del eje Y
@@ -114,10 +120,10 @@ function gasto_ahorro_mes(container, props) {
         .merge(etiquetay)
         .attr("transform", "rotate(-90)")
         .attr("x", - (props.height - margin.top - margin.bottom) / 2)
-        .attr("y", -(margin.left / 4))
+        .attr("y", -(margin.left / 2))
         .attr("dy", "-1vh")
         .attr("text-anchor", "middle")
-        .style("font-size", "3vh");
+        .style("font-size", sizeaxis + 'px');
 
     
     // Creación de la escala x y agregación del eje x.
@@ -133,20 +139,21 @@ function gasto_ahorro_mes(container, props) {
         .attr('class', 'x-axis1')
     .merge(xAxisG)
         .attr('transform', `translate(0, ${height})`);
-        xAxisG.call(xAxis);
+    xAxisG.call(xAxis)
+        .style('font-size', fontSize + 'px');;
 
-
+    maximoTotal = Math.max(d3.max(gasto_no_placas), d3.max(ahorros))*1.2;
     // Creación de la escala x y agregación del eje x.
     const yScale = d3.scaleLinear()
-        .domain([0, d3.max(gasto_no_placas)])
+        .domain([0, maximoTotal])
         .range([height, 0]);
     const yAxis = d3.axisLeft(yScale);
     let yAxisG = g.selectAll('.y-axis1').data([null]);
     yAxisG = yAxisG.enter().append('g')
         .attr('class', 'y-axis1')
     .merge(yAxisG);
-        yAxisG.call(yAxis);
-
+    yAxisG.call(yAxis)
+        .style('font-size', fontSize + 'px');
 
     // Agregar línea al gráfico
     let grafico = g.selectAll('.linea1').data(gasto_no_placas);

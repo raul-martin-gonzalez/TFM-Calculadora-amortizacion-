@@ -6,7 +6,7 @@
     flex-direction: column;
     align-items: center;
     margin: 2%;
-    font-size: 2vw;
+    font-size: 4vh;
 }
 
 .informe-resultados p{
@@ -20,7 +20,8 @@
 
 .table {
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
+    max-width: 100%;
     border: 1vh solid #080808;
     padding: 3vh; /* Relleno para toda la tabla */
     margin: 4vh 0;
@@ -31,11 +32,13 @@
     border-top: 0.5vh solid #080808; /* Borde de celdas de color negro-gris */
     border-bottom: 0.5vh solid #080808; /* Borde de celdas de color negro-gris */
     text-align: center;
-    padding: 2vh;
+    padding: 1vh;
 }
 
 .Cabecera-tabla{
     background: rgb(86, 101, 115);
+    color: #fff;
+    font-weight: bold; 
 }
 
 .container_graficas_compactas{
@@ -43,8 +46,10 @@
     flex-wrap: wrap;
     width: 100%;
     height: 60vh;
-    background: rgba(241, 238, 238, 0.904);
+    /*background: rgba(241, 238, 238, 0.904);*/
     /*border: solid rgb(193, 245, 6) 10px;*/
+    color: black;
+    font-size: 4vh;
 }
 
 #Bar_Chart_consumo_produccion, #Bar_Chart_gasto_ahorro {
@@ -54,18 +59,18 @@
     height: 100%;
 }
 
-#Bar_Chart_consumo_produccion{
-    background: rgba(241, 238, 238, 0.904);
-    /*border: solid rgb(22, 245, 6) 10px;*/
-}
-
-
-#Bar_Chart_gasto_ahorro{
-    background: rgba(241, 238, 238, 0.904);
-    /*border: solid rgb(219, 39, 39) 10px;*/
+@media (max-width: 900px){
+    .informe-resultados{
+        font-size: 3vw;
+    }
 }
 
 @media (max-width: 900px) {
+    .table{
+        width: 100%;
+        max-width: 100%;
+    }
+
     .container_graficas_compactas {
         min-height: 200vh;
         /*height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
@@ -75,6 +80,7 @@
         flex: 1 1 100%; /* Cambia el ancho de cada contenedor al 100% cuando la ventana sea menor de 600px */
         height: 50%; /* Cada subcontenedor ocupa el 50% de la altura del contenedor padre */
     }
+
 }
 
 .container_graficas_mensuales{
@@ -82,8 +88,10 @@
     flex-wrap: wrap;
     width: 100%;
     height: 60vh;
-    background: rgba(241, 238, 238, 0.904);
+    /*background: rgba(241, 238, 238, 0.904);*/
     /*border: solid rgb(193, 245, 6) 10px;*/
+    color: black;
+    font-size: 4vh;
 }
 
 #chart_consumo_produccion_mes, #chart_gasto_ahorro_mes {
@@ -93,17 +101,10 @@
     height: 100%;
 }
 
-#chart_consumo_produccion_mes{
-    background: rgba(241, 238, 238, 0.904);
-    /*border: solid rgb(245, 70, 6) 10px;*/
-}
 
-#chart_gasto_ahorro_mes{
-    background: rgba(241, 238, 238, 0.904);
-    /*border: solid rgb(22, 245, 6) 10px;*/
-}
 
 @media (max-width: 900px) {
+    
     .container_graficas_mensuales {
         min-height: 200vh;
         /*height: auto; /* Elimina la altura fija del contenedor cuando la ventana sea menor a 600px */
@@ -120,8 +121,10 @@
     flex-wrap: wrap;
     width: 100%;
     height: 60vh;
-    background: rgba(241, 238, 238, 0.904);
+    /*background: rgba(241, 238, 238, 0.904);*/
     /*border: solid rgb(193, 245, 6) 10px;*/
+    color: black;
+    font-size: 4vh;
 }
 
 #chart_consumo_produccion_dia, #chart_gasto_ahorro_dia {
@@ -129,16 +132,6 @@
     min-width: 300px; /* Define el ancho mínimo */
     box-sizing: border-box; /* Ajusta el tamaño incluyendo el padding y border */
     height: 100%;
-}
-
-#chart_consumo_produccion_dia{
-    background: rgba(241, 238, 238, 0.904);
-    /*border: solid rgb(245, 70, 6) 10px;*/
-}
-
-#chart_gasto_ahorro_dia{
-    background: rgba(241, 238, 238, 0.904);
-    /*border: solid rgb(22, 245, 6) 10px;*/
 }
 
 @media (max-width: 900px) {
@@ -168,3 +161,97 @@
     }
 }
 
+
+
+/* Estilos para el contenedor */
+.Seleccion_mes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3vw auto 1vw;
+}
+
+/* Estilos para el selector */
+#consumo_produccion_mes {
+    padding: 10px;
+    font-size: 16px;
+    /*margin-right: 10px; /* Quitamos el ancho fijo para que se ajuste automáticamente */
+    border-radius: 4px;
+}
+
+/* Estilos para el botón */
+.Seleccion_mes button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    border-radius: 4px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilos responsivos */
+@media only screen and (max-width: 600px) {
+    /* Para pantallas de hasta 600px de ancho */
+    .Seleccion_mes {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    #consumo_produccion_mes {
+        width: 100%; /* Ajustamos el ancho al 100% para que se expanda completamente */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+}
+
+
+/* Estilos para el contenedor */
+.Seleccion_dia {
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 3vw auto 1vw;
+}
+
+
+/* Estilos para el input */
+#dateInput {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
+
+/* Estilos para el botón */
+.Seleccion_dia button{
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 200px;
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
+
+button:hover {
+    background-color: #00b348;
+}
+
+/* Estilos responsivos */
+@media only screen and (max-width: 600px) {
+    /* Para pantallas de hasta 600px de ancho */
+    .Seleccion_dia {
+        width: 100%; /* Asegura que el contenedor ocupe el ancho completo */
+    }
+    #dateInput,
+    .Seleccion_dia button {
+        width: calc(100% - 20px); /* Ajusta el ancho del input y el botón para ocupar todo el ancho disponible, restando el espacio del padding */
+        max-width: 200px; /* Establece un ancho máximo para evitar que se estiren demasiado */
+    }
+}
+    
