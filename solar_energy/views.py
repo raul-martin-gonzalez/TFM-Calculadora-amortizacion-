@@ -32,6 +32,7 @@ def calculadora_amortizacion(request):
             'longitud': request.POST['longitud'],
             'N_placas': request.POST['placas_cadena'],
             'Coste': request.POST['coste_sistema'],
+            'Subvencion': request.POST['subvencion_sistema']
         }
        
         datos_radiacion, datos_produccion = modelo_fotovoltaico(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(dic_var['N_placas']))
@@ -52,10 +53,10 @@ def calculadora_amortizacion(request):
             'total_gasto_con_placas': (consumo_compacto['Gasto_con_placas'].sum()).round(2),
         }
 
-        dic_totales['Amortizacion']=(float(dic_var['Coste'])/dic_totales['total_ahorro']).round(2)
+        dic_totales['Amortizacion']=((float(dic_var['Coste'])-float(dic_var['Subvencion']))/dic_totales['total_ahorro']).round(2)
         dic_totales['Beneficio']=((25-dic_totales['Amortizacion'])*dic_totales['total_ahorro']).round(2)
 
-        dic_totales['Amortizacion_IVA']=(float(dic_var['Coste'])/(dic_totales['total_ahorro']*1.21)).round(2)
+        dic_totales['Amortizacion_IVA']=((float(dic_var['Coste'])-float(dic_var['Subvencion']))/(dic_totales['total_ahorro']*1.21)).round(2)
         dic_totales['Beneficio_IVA'] = ((25-dic_totales['Amortizacion_IVA'])*(dic_totales['total_ahorro']*1.21)).round(2)
         
         data_comparativa = datos_comparativa(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(request.POST['coste_sistema']), float(request.POST['subvencion_sistema']))

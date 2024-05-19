@@ -39,7 +39,7 @@ function grafico_comparativa(container, props) {
     let minDimension = Math.min(props.width, props.height);
     let fontSize;
     fontSize = minDimension * 0.03;
-    sizetitle = minDimension * 0.08;
+    sizetitle = minDimension * 0.07;
     sizeaxis = minDimension * 0.05; 
 
 
@@ -47,7 +47,7 @@ function grafico_comparativa(container, props) {
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
         .attr("class", "chart-title")
-        .text("Gasto vs. Consumo Mes") // Título del gráfico
+        .text("Compartiva diferentes nº placas") // Título del gráfico
         .merge(titulo)
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
@@ -79,34 +79,34 @@ function grafico_comparativa(container, props) {
         .attr("text-anchor", "middle")
         .style("font-size", sizeaxis + 'px');
 
-    
+    // Creación de la escala y y agregación del eje y.
+    const yScale = d3.scaleLinear()
+        .domain([d3.min(data_comparativa.placas_35), d3.max(data_comparativa.placas_35)])
+        .range([height, 0]);
+    const yAxis = d3.axisLeft(yScale)
+        .ticks(10)
+        .tickFormat(d3.format("d"));
+    let yAxisG = g.selectAll('.y-axis1').data([null]);
+    yAxisG = yAxisG.enter().append('g')
+        .attr('class', 'y-axis1')
+    .merge(yAxisG);
+    yAxisG.call(yAxis)
+        .style('font-size', fontSize + 'px');
+
     // Creación de la escala x y agregación del eje x.
     const xScale = d3.scaleBand()
         .domain(d3.range(data_comparativa.años.length))
         .range([0, width])
-        .padding(0.2);
+        .padding(0.2)
+        //.paddingOuter(-0.4);
     const xAxis = d3.axisBottom(xScale)
-        //.tickValues(d3.range(0, fechas.length, 24)) // Mostrar un valor por cada 24 valores
-        //.tickFormat(function(d, i) { return i + 1; }); // Usar números enteros como etiquetas de los ticks
+        
     let xAxisG = g.selectAll('.x-axis1').data([null]);
     xAxisG = xAxisG.enter().append('g')
         .attr('class', 'x-axis1')
     .merge(xAxisG)
         .attr('transform', `translate(0, ${height})`);
     xAxisG.call(xAxis)
-        .style('font-size', fontSize + 'px');
-
-
-    // Creación de la escala x y agregación del eje x.
-    const yScale = d3.scaleLinear()
-        .domain([d3.min(data_comparativa.placas_35), d3.max(data_comparativa.placas_35)])
-        .range([height, 0]);
-    const yAxis = d3.axisLeft(yScale);
-    let yAxisG = g.selectAll('.y-axis1').data([null]);
-    yAxisG = yAxisG.enter().append('g')
-        .attr('class', 'y-axis1')
-    .merge(yAxisG);
-    yAxisG.call(yAxis)
         .style('font-size', fontSize + 'px');
 
 

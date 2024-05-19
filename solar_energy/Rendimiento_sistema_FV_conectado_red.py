@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 
 def modelo_fotovoltaico(latitud, longitud, nombre, placas):
     data, meta, inputs = pvlib.iotools.get_pvgis_hourly(
-        latitude=latitud, longitude=longitud, start=2005, end=2005, raddatabase='PVGIS-SARAH2', components=True, 
+        latitude=latitud, longitude=longitud, start=2005, end=2005, raddatabase='PVGIS-ERA5', components=True, 
         surface_tilt=30, surface_azimuth=180, outputformat='json', usehorizon=True, userhorizon=None,
         pvcalculation=False, peakpower=None, pvtechchoice='crystSi', mountingplace='free', loss=0, trackingtype=0, 
         optimal_surface_tilt=False, optimalangles=False, url='https://re.jrc.ec.europa.eu/api/', map_variables=True, 

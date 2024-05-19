@@ -14,14 +14,17 @@
 {% block content %}
 <div class='informe-resultados'>
     <div class="consejo">
-        <p>* En dispositivos móvil, poner la pantalla en horizontal para una correcta visualización de las gráficas y tablas</p>
+        <p>* En dispositivos móvil, poner la pantalla en horizontal para una correcta visualización de las gráficas y tablas.</p>
+        <p id='mensaje advertencia'>* Salvo aclaración expresa todos las catidades en € están sin IVA.</p>
     </div>
+
+    
     <h2>Informe Amortización Placas Solares</h2>
-    <p id='mensaje advertencia'>Salvo aclaración expresa todos las catidades en € están sin IVA</p>
+    
     <p>Nombre de la instalación: {{contexto1.name}}</p>
     <p>Coordenadas: {{contexto1.latitud}} , {{contexto1.longitud}}</p>
     <p>La instalación se compone de {{contexto1.N_placas}} placas solares</p>
-    <p>Según el coste proporcionado si tenemos en cuenta el ahorro sin IVA
+    <p>Según el coste y la subvencion proporcionados, si tenemos en cuenta el ahorro sin IVA
         producido por la instalación, tardaría en amortizar la instalación {{contexto3.Amortizacion}}
         años. 
     <p>Teniendo en cuenta que se considera que la vida útil de una instalación Fotovoltaica

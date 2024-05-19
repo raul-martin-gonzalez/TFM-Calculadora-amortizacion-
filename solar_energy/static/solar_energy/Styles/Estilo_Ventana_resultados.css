@@ -17,6 +17,16 @@
 
 /*https://www.youtube.com/watch?v=wuUSVEcK-kM*/
 
+.consejo {
+    text-align: left;
+    width: 100%;
+}
+
+.consejo p{
+    color: rgb(252, 5, 5);
+    font-size: 3vh;
+    text-align: left;
+}
 
 .table {
     border-collapse: collapse;
@@ -63,6 +73,11 @@
     .informe-resultados{
         font-size: 3vw;
     }
+
+    .consejo p{
+        font-size: 2.5vw;
+    }
+
 }
 
 @media (max-width: 900px) {
@@ -150,14 +165,17 @@
 #chart_comparativa_placas{
     width: 80vh;
     height: 60vh;
-    background: rgba(241, 238, 238, 0.904);
+    /*background: rgba(241, 238, 238, 0.904);*/
     /*border: solid rgb(22, 245, 6) 10px;*/
+    color: black;
+    margin-top: 4vh;
 }
 
 @media (max-width: 900px) {
     #chart_comparativa_placas{
         width: 100%;
         height: 80vh;
+        margin-top: 3vw;
     }
 }
 
