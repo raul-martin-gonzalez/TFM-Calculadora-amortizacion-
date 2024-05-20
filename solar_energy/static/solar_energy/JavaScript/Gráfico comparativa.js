@@ -47,7 +47,7 @@ function grafico_comparativa(container, props) {
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
         .attr("class", "chart-title")
-        .text("Compartiva diferentes nº placas") // Título del gráfico
+        .text("Comparativa diferentes nº placas") // Título del gráfico
         .merge(titulo)
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
