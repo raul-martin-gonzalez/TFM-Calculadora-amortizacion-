@@ -193,7 +193,7 @@ function grafico_consumo_produccion_dia(container, props) {
     .attr("x", 15)
     .attr("y", (d, i) => i * 20 + 9)
     .text(d => d.label)
-    .style("font-size", "12px")
+    .style("font-size", "14px")
     .attr("alignment-baseline", "middle");
 }
 

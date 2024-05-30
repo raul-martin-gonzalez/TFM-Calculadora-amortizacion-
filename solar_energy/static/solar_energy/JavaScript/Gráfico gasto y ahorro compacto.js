@@ -68,7 +68,7 @@ function gasto_ahorro(container, props){
   let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
   titulo = titulo.enter().append("text")
       .attr("class", "chart-title")
-      .text("Gasto vs. Ahorro") // Título del gráfico
+      .text("Sin placas vs. Con placas") // Título del gráfico
     .merge(titulo)
       .attr("x", (props.width - margin.left - margin.right) / 2)
       .attr("y", margin.top / 2)
@@ -91,7 +91,7 @@ function gasto_ahorro(container, props){
   let etiquetay = g.selectAll('.y-axis-label').data([null]); 
   etiquetay = etiquetay.enter().append("text")
       .attr("class", "y-axis-label")
-      .text("€") // Etiqueta del eje Y
+      .text("Coste (€)") // Etiqueta del eje Y
     .merge(etiquetay)
       .attr("transform", "rotate(-90)")
       .attr("x", - (props.height - margin.top - margin.bottom) / 2)
@@ -116,7 +116,7 @@ function gasto_ahorro(container, props){
       .style('font-size', fontSize + 'px');;
 
 
-  maximoTotal = Math.max(d3.max(gasto_no_placas), d3.max(ahorros))*1.2;
+  maximoTotal = Math.max(d3.max(gasto_no_placas), d3.max(gasto_si_placas))*1.2;
   // Escala para el eje Y y Agrega el eje Y (altura de las barras)
   const yScale = d3.scaleLinear()
     .domain([0, maximoTotal])
@@ -141,7 +141,7 @@ function gasto_ahorro(container, props){
         .attr("height", function(d) { return height - yScale(d); })
         .style("fill", "red");
 
-  let grafico2 = g.selectAll('.bar2').data(ahorros);
+  let grafico2 = g.selectAll('.bar2').data(gasto_si_placas);
   grafico2 = grafico2.enter().append("rect")
       .attr("class", "bar2")
     .merge(grafico2)
@@ -161,8 +161,8 @@ legend = legend.enter().append("g")
 
 // Datos de la leyenda
 const legendData = [
-{ label: "Gasto sin placas", color: "red" },
-{ label: "Ahorro con placas", color: "steelblue" }
+{ label: "Factura de luz sin placas", color: "red" },
+{ label: "Factura de luz con placas", color: "steelblue" }
 ];
 
 // Crear cuadrados de color y etiquetas de texto para la leyenda
@@ -181,7 +181,7 @@ legend.selectAll("text")
 .attr("x", 15)
 .attr("y", (d, i) => i * 20 + 9)
 .text(d => d.label)
-.style("font-size", "12px")
+.style("font-size", "14px")
 .attr("alignment-baseline", "middle");
   
 

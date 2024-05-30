@@ -93,7 +93,7 @@ function gasto_ahorro_mes(container, props) {
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
         .attr("class", "chart-title")
-        .text(nombreMes + " Gasto vs. Ahorro") // Título del gráfico
+        .text(nombreMes + " Sin placas vs. Con placas") // Título del gráfico
         .merge(titulo)
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
@@ -116,7 +116,7 @@ function gasto_ahorro_mes(container, props) {
     let etiquetay = g.selectAll('.y-axis-label').data([null]); 
     etiquetay = etiquetay.enter().append("text")
         .attr("class", "y-axis-label")
-        .text("€") // Etiqueta del eje Y
+        .text("Coste (€)") // Etiqueta del eje Y
         .merge(etiquetay)
         .attr("transform", "rotate(-90)")
         .attr("x", - (props.height - margin.top - margin.bottom) / 2)
@@ -125,6 +125,19 @@ function gasto_ahorro_mes(container, props) {
         .attr("text-anchor", "middle")
         .style("font-size", sizeaxis + 'px');
 
+    maximoTotal = Math.max(d3.max(gasto_no_placas), d3.max(gasto_si_placas))*1.2;
+    minimoTotal = Math.min(d3.min(gasto_no_placas), d3.min(gasto_si_placas));
+    // Creación de la escala x y agregación del eje x.
+    const yScale = d3.scaleLinear()
+        .domain([minimoTotal, maximoTotal])
+        .range([height, 0]);
+    const yAxis = d3.axisLeft(yScale);
+    let yAxisG = g.selectAll('.y-axis1').data([null]);
+    yAxisG = yAxisG.enter().append('g')
+        .attr('class', 'y-axis1')
+    .merge(yAxisG);
+    yAxisG.call(yAxis)
+        .style('font-size', fontSize + 'px');
     
     // Creación de la escala x y agregación del eje x.
     const xScale = d3.scaleBand()
@@ -142,18 +155,7 @@ function gasto_ahorro_mes(container, props) {
     xAxisG.call(xAxis)
         .style('font-size', fontSize + 'px');;
 
-    maximoTotal = Math.max(d3.max(gasto_no_placas), d3.max(ahorros))*1.2;
-    // Creación de la escala x y agregación del eje x.
-    const yScale = d3.scaleLinear()
-        .domain([0, maximoTotal])
-        .range([height, 0]);
-    const yAxis = d3.axisLeft(yScale);
-    let yAxisG = g.selectAll('.y-axis1').data([null]);
-    yAxisG = yAxisG.enter().append('g')
-        .attr('class', 'y-axis1')
-    .merge(yAxisG);
-    yAxisG.call(yAxis)
-        .style('font-size', fontSize + 'px');
+   
 
     // Agregar línea al gráfico
     let grafico = g.selectAll('.linea1').data(gasto_no_placas);
@@ -169,9 +171,9 @@ function gasto_ahorro_mes(container, props) {
             .y(function(d) { return yScale(d); }));
 
     // Agregar línea al gráfico
-    let grafico1 = g.selectAll('.linea2').data(ahorros);
+    let grafico1 = g.selectAll('.linea2').data(gasto_si_placas);
     grafico1 = grafico1.enter().append("path")
-        .datum(ahorros)
+        .datum(gasto_si_placas)
         .attr("class", "linea2")
     .merge(grafico1)
         .attr("fill", "none")
@@ -190,8 +192,8 @@ legend = legend.enter().append("g")
 
 // Datos de la leyenda
 const legendData = [
-{ label: "Gasto sin placas", color: "red" },
-{ label: "Ahorro con placas", color: "steelblue" }
+{ label: "Factura de luz sin placas", color: "red" },
+{ label: "Factura de luz con placas", color: "steelblue" }
 ];
 
 // Crear cuadrados de color y etiquetas de texto para la leyenda
@@ -210,7 +212,7 @@ legend.selectAll("text")
 .attr("x", 15)
 .attr("y", (d, i) => i * 20 + 9)
 .text(d => d.label)
-.style("font-size", "12px")
+.style("font-size", "14px")
 .attr("alignment-baseline", "middle");
 
 }

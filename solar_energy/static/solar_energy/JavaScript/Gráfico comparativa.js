@@ -4,7 +4,32 @@ var data_comparativa = JSON.parse(data_comparativa_str);
 
 contenedor_grafica_comparativa = document.getElementById('chart_comparativa_placas');
 
+contenedor_casos = document.getElementById('Casos');
+var data_casos_str = contenedor_casos.getAttribute('data-comparativa');
+var data_casos = JSON.parse(data_casos_str);
+console.log(typeof(data_casos));
+
 function grafico_comparativa(container, props) {
+    var años = [];
+    var dcaso0 = [];
+    var dcaso1 = [];
+    var dcaso2 = [];
+    var dcaso3 = [];
+
+    for (var i = 0; i < data_comparativa.length; i++) {
+        var año = data_comparativa[i].Años;
+        var caso0 = data_comparativa[i].placas_caso0;
+        var caso1 = data_comparativa[i].placas_caso1;
+        var caso2 = data_comparativa[i].placas_caso2;
+        var caso3 = data_comparativa[i].placas_caso3;
+
+        años.push(año);
+        dcaso0.push(caso0);
+        dcaso1.push(caso1)
+        dcaso2.push(caso2)
+        dcaso3.push(caso3)
+      }
+    
     //Margen y dimensiones del gráfico
     var margin = {top: 0.1 * props.height, right: 0.04 * props.width, bottom: 0.2* props.height, left: 0.14 * props.width};
     var width = props.width - margin.left - margin.right;
@@ -47,7 +72,7 @@ function grafico_comparativa(container, props) {
     let titulo = g.selectAll('.chart-title').data([null]); // Elimina el título anterior si existe
     titulo = titulo.enter().append("text")
         .attr("class", "chart-title")
-        .text("Comparativa diferentes nº placas") // Título del gráfico
+        .text("Comparativa diferentes casos") // Título del gráfico
         .merge(titulo)
         .attr("x", (props.width - margin.left - margin.right) / 2)
         .attr("y", -margin.top/5)
@@ -70,7 +95,7 @@ function grafico_comparativa(container, props) {
     let etiquetay = g.selectAll('.y-axis-label').data([null]); 
     etiquetay = etiquetay.enter().append("text")
         .attr("class", "y-axis-label")
-        .text("€") // Etiqueta del eje Y
+        .text("Retorno de la inversión (€)") // Etiqueta del eje Y
         .merge(etiquetay)
         .attr("transform", "rotate(-90)")
         .attr("x", - (props.height - margin.top - margin.bottom) / 2)
@@ -79,9 +104,11 @@ function grafico_comparativa(container, props) {
         .attr("text-anchor", "middle")
         .style("font-size", sizeaxis + 'px');
 
+    maximoTotal = Math.max(d3.max(dcaso0), d3.max(dcaso1), d3.max(dcaso2), d3.max(dcaso3))*1.2;
+    minimoTotal = Math.min(d3.min(dcaso0), d3.min(dcaso1), d3.min(dcaso2), d3.min(dcaso3));
     // Creación de la escala y y agregación del eje y.
     const yScale = d3.scaleLinear()
-        .domain([d3.min(data_comparativa.placas_35), d3.max(data_comparativa.placas_35)])
+        .domain([minimoTotal, maximoTotal])
         .range([height, 0]);
     const yAxis = d3.axisLeft(yScale)
         .ticks(10)
@@ -95,25 +122,25 @@ function grafico_comparativa(container, props) {
 
     // Creación de la escala x y agregación del eje x.
     const xScale = d3.scaleBand()
-        .domain(d3.range(data_comparativa.años.length))
+        .domain(d3.range(años.length))
         .range([0, width])
         .padding(0.2)
-        //.paddingOuter(-0.4);
+        .paddingOuter(-0.4);
     const xAxis = d3.axisBottom(xScale)
         
     let xAxisG = g.selectAll('.x-axis1').data([null]);
     xAxisG = xAxisG.enter().append('g')
         .attr('class', 'x-axis1')
     .merge(xAxisG)
-        .attr('transform', `translate(0, ${height})`);
+        .attr('transform', `translate(0, ${yScale(0)})`);
     xAxisG.call(xAxis)
         .style('font-size', fontSize + 'px');
 
 
     // Agregar línea al gráfico
-    let grafico = g.selectAll('.linea1').data(data_comparativa.placas_1);
+    let grafico = g.selectAll('.linea1').data(dcaso0);
     grafico = grafico.enter().append("path")
-        .datum(data_comparativa.placas_1)
+        .datum(dcaso0)
         .attr("class", "linea1")
     .merge(grafico)
         .attr("fill", "none")
@@ -124,9 +151,9 @@ function grafico_comparativa(container, props) {
             .y(function(d) { return yScale(d); }));
 
     // Agregar línea al gráfico
-    let grafico1 = g.selectAll('.linea2').data(data_comparativa.placas_2);
+    let grafico1 = g.selectAll('.linea2').data(dcaso1);
     grafico1 = grafico1.enter().append("path")
-        .datum(data_comparativa.placas_2)
+        .datum(dcaso1)
         .attr("class", "linea2")
     .merge(grafico1)
         .attr("fill", "none")
@@ -137,9 +164,9 @@ function grafico_comparativa(container, props) {
             .y(function(d) { return yScale(d); })); 
 
     // Agregar línea al gráfico
-    let grafico2 = g.selectAll('.linea3').data(data_comparativa.placas_4);
+    let grafico2 = g.selectAll('.linea3').data(dcaso2);
     grafico2 = grafico2.enter().append("path")
-        .datum(data_comparativa.placas_4)
+        .datum(dcaso2)
         .attr("class", "linea3")
     .merge(grafico2)
         .attr("fill", "none")
@@ -150,9 +177,9 @@ function grafico_comparativa(container, props) {
             .y(function(d) { return yScale(d); }));
     
     // Agregar línea al gráfico
-    let grafico3 = g.selectAll('.linea4').data(data_comparativa.placas_8);
+    let grafico3 = g.selectAll('.linea4').data(dcaso3);
     grafico3 = grafico3.enter().append("path")
-        .datum(data_comparativa.placas_8)
+        .datum(dcaso3)
         .attr("class", "linea4")
     .merge(grafico3)
         .attr("fill", "none")
@@ -162,70 +189,6 @@ function grafico_comparativa(container, props) {
             .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
             .y(function(d) { return yScale(d); }));
 
-    // Agregar línea al gráfico
-    let grafico4 = g.selectAll('.linea5').data(data_comparativa.placas_12);
-    grafico4 = grafico4.enter().append("path")
-        .datum(data_comparativa.placas_12)
-        .attr("class", "linea5")
-    .merge(grafico4)
-        .attr("fill", "none")
-        .attr("stroke", "brown")
-        .attr("stroke-width", 2)
-        .attr("d", d3.line()
-            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
-            .y(function(d) { return yScale(d); }));
-
-
-    // Agregar línea al gráfico
-    let grafico5 = g.selectAll('.linea6').data(data_comparativa.placas_16);
-    grafico5 = grafico5.enter().append("path")
-        .datum(data_comparativa.placas_16)
-        .attr("class", "linea6")
-    .merge(grafico5)
-        .attr("fill", "none")
-        .attr("stroke", "pink")
-        .attr("stroke-width", 2)
-        .attr("d", d3.line()
-            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
-            .y(function(d) { return yScale(d); }));
-
-
-    let grafico6 = g.selectAll('.linea7').data(data_comparativa.placas_20);
-    grafico6 = grafico6.enter().append("path")
-        .datum(data_comparativa.placas_20)
-        .attr("class", "linea7")
-    .merge(grafico6)
-        .attr("fill", "none")
-        .attr("stroke", "black")
-        .attr("stroke-width", 2)
-        .attr("d", d3.line()
-            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
-            .y(function(d) { return yScale(d); })); 
-
-    let grafico7 = g.selectAll('.linea8').data(data_comparativa.placas_25);
-    grafico7 = grafico7.enter().append("path")
-        .datum(data_comparativa.placas_25)
-        .attr("class", "linea8")
-    .merge(grafico7)
-        .attr("fill", "none")
-        .attr("stroke", "green")
-        .attr("stroke-width", 2)
-        .attr("d", d3.line()
-            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
-            .y(function(d) { return yScale(d); })); 
-    
-    // Agregar línea al gráfico
-    let grafico8 = g.selectAll('.linea9').data(data_comparativa.placas_35);
-    grafico8 = grafico8.enter().append("path")
-        .datum(data_comparativa.placas_35)
-        .attr("class", "linea9")
-    .merge(grafico8)
-        .attr("fill", "none")
-        .attr("stroke", "yellow")
-        .attr("stroke-width", 2)
-        .attr("d", d3.line()
-            .x(function(d, i) { return xScale(i) + xScale.bandwidth() / 2; })
-            .y(function(d) { return yScale(d); })); 
 
 // Agregar leyenda
 let legend = g.selectAll('.legend').data([null]); 
@@ -236,22 +199,17 @@ legend = legend.enter().append("g")
 
 // Datos de la leyenda
 const legendData = [
-    { nombre: "Placas 1", color: "blue" },
-    { nombre: "Placas 2", color: "orange" },
-    { nombre: "Placas 4", color: "red" },
-    { nombre: "Placas 8", color: "purple" },
-    { nombre: "Placas 12", color: "brown" },
-    { nombre: "Placas 16", color: "pink" },
-    { nombre: "Placas 20", color: "black" },
-    { nombre: "Placas 25", color: "green" },
-    { nombre: "Placas 35", color: "yellow" }
+    { nombre: "Nº placas " + data_casos.caso0, color: "blue" },
+    { nombre: "Nº placas " + data_casos.caso1, color: "orange" },
+    { nombre: "Nº placas " + data_casos.caso2, color: "red" },
+    { nombre: "Nº placas " + data_casos.caso3, color: "purple" },
 ];
 
 
 // Configuración de la leyenda
 const numCols = 2;
 const itemHeight = 20;
-const itemWidth = 80;
+const itemWidth = 105;
 const padding = 5;
 
 legendData.forEach((d, i) => {
@@ -288,7 +246,7 @@ legendData.forEach((d, i) => {
     })
     .attr('dy', '0.35em')
     .style('text-anchor', 'start')
-    .style('font-size', '12px')
+    .style('font-size', '14px')
     .text(d => d.nombre);
 });
 

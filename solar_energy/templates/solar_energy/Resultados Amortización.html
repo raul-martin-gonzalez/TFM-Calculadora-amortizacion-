@@ -24,6 +24,9 @@
     <p>Nombre de la instalación: {{contexto1.name}}</p>
     <p>Coordenadas: {{contexto1.latitud}} , {{contexto1.longitud}}</p>
     <p>La instalación se compone de {{contexto1.N_placas}} placas solares</p>
+    <p>El precio medio de la luz del último año fue de {{contexto3.precio_medio_luz}} €/kWh, mientras que
+        el precio de compra de la energía excedentaría fue de {{contexto3.precio_medio_energia_excedente}} €/kWh
+    </p>
     <p>Según el coste y la subvencion proporcionados, si tenemos en cuenta el ahorro sin IVA
         producido por la instalación, tardaría en amortizar la instalación {{contexto3.Amortizacion}}
         años. 
@@ -111,6 +114,7 @@
     </div>
 
     <div id="Datos_comparativa" data-comparativa="{{contexto6}}"></div>
+    <div id="Casos" data-comparativa="{{contexto7}}"></div>
     <div id='chart_comparativa_placas' class='Chart_container_comparativa'></div>
 
 </div>  

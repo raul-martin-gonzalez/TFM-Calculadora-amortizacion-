@@ -23,6 +23,7 @@ def calculadora_amortizacion(request):
         
         df1 = pd.read_csv(datos_consumo, header=0, sep=';', encoding='utf-8')
         df=df1.rename(columns={'FECHA-HORA':'FECHA_HORA', 'CONSUMO Wh':'CONSUMO_Wh'})
+        comparativa = df1.copy()
         
         datos_json = df[0:20].to_json(orient='records')
 
@@ -35,6 +36,7 @@ def calculadora_amortizacion(request):
             'Subvencion': request.POST['subvencion_sistema']
         }
        
+
         datos_radiacion, datos_produccion = modelo_fotovoltaico(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(dic_var['N_placas']))
        
         datos_precio_luz = pd.read_csv('solar_energy/Precio_luz_2023.csv', sep=';', header=0, encoding='utf-8')
@@ -44,13 +46,15 @@ def calculadora_amortizacion(request):
         consumo_mes_json = consumo_mes.to_json(orient='records')
         datos_tabla = consumo_compacto.to_dict(orient='records')
         pd.options.display.width = 500
-       
+
         dic_totales = {
             'total_consumo': (consumo_compacto['CONSUMO_Wh'].sum()).round(2),
             'total_producción': (consumo_compacto['Produccion'].sum()).round(2), 
             'total_gasto_sin_placas': (consumo_compacto['Gasto_sin_placas'].sum()).round(2),
             'total_ahorro': (consumo_compacto['Ahorro_con_placas'].sum()).round(2),
             'total_gasto_con_placas': (consumo_compacto['Gasto_con_placas'].sum()).round(2),
+            'precio_medio_luz': (datos_precio_luz['value'].mean()/1000).round(2),
+            'precio_medio_energia_excedente': (datos_precio_luz['Precio_energia_excedentaria'].mean()/1000).round(2)
         }
 
         dic_totales['Amortizacion']=((float(dic_var['Coste'])-float(dic_var['Subvencion']))/dic_totales['total_ahorro']).round(2)
@@ -59,10 +63,23 @@ def calculadora_amortizacion(request):
         dic_totales['Amortizacion_IVA']=((float(dic_var['Coste'])-float(dic_var['Subvencion']))/(dic_totales['total_ahorro']*1.21)).round(2)
         dic_totales['Beneficio_IVA'] = ((25-dic_totales['Amortizacion_IVA'])*(dic_totales['total_ahorro']*1.21)).round(2)
         
-        data_comparativa = datos_comparativa(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], float(request.POST['coste_sistema']), float(request.POST['subvencion_sistema']))
-        data_comparativa_json = json.dumps(data_comparativa)
         
-        return resultados(request, {'contexto1': dic_var, 'contexto2': datos_tabla, "contexto3": dic_totales , "contexto4": consumo_compacto_json, 'contexto5':consumo_mes_json, 'contexto6':data_comparativa_json})
+        data_comparativa = datos_comparativa(float(dic_var['latitud']), float(dic_var['longitud']), dic_var['name'], comparativa, datos_precio_luz,
+                                             float(request.POST['placas_cadena']), float(request.POST['coste_sistema']), float(request.POST['subvencion_sistema']),
+                                             float(request.POST['placas_cadena1']), float(request.POST['coste_sistema1']), float(request.POST['subvencion_sistema1']),
+                                             float(request.POST['placas_cadena2']), float(request.POST['coste_sistema2']), float(request.POST['subvencion_sistema2']),
+                                             float(request.POST['placas_cadena3']), float(request.POST['coste_sistema3']), float(request.POST['subvencion_sistema3']))
+        data_comparativa_json = data_comparativa.to_json(orient='records')
+        
+        casos={'caso0': float(request.POST['placas_cadena']),
+               'caso1': float(request.POST['placas_cadena1']),
+               'caso2': float(request.POST['placas_cadena2']),
+               'caso3': float(request.POST['placas_cadena3']),
+               }
+        
+        json_casos = json.dumps(casos)
+
+        return resultados(request, {'contexto1': dic_var, 'contexto2': datos_tabla, "contexto3": dic_totales , "contexto4": consumo_compacto_json, 'contexto5':consumo_mes_json, 'contexto6':data_comparativa_json, 'contexto7':json_casos})
 
     return render(request, "solar_energy/Calculadora.html") 
 
