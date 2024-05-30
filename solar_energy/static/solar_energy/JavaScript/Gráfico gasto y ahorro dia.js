@@ -67,7 +67,7 @@ function grafico_gasto_ahorro_dia(container, props) {
     let minDimension = Math.min(props.width, props.height);
     let fontSize;
     fontSize = minDimension * 0.03;
-    sizetitle = minDimension * 0.08;
+    sizetitle = minDimension * 0.07;
     sizeaxis = minDimension * 0.05; 
 
     // Título del gráfico
@@ -138,9 +138,18 @@ function grafico_gasto_ahorro_dia(container, props) {
     xAxisG.call(xAxis)
         .style('font-size', fontSize + 'px');
 
+
+    // Agregar la línea horizontal en el valor 0 del eje y
+    g.append("line")
+    .attr("class", "zero-line")
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("y1", yScale(0))
+    .attr("y2", yScale(0))
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray", "5,5");
     
-
-
     // Agregar línea al gráfico
     let grafico = g.selectAll('.linea1').data(gasto_no_placas);
     grafico = grafico.enter().append("path")

@@ -65,7 +65,7 @@ function grafico_consumo_produccion_dia(container, props) {
     let minDimension = Math.min(props.width, props.height);
     let fontSize;
     fontSize = minDimension * 0.03;
-    sizetitle = minDimension * 0.08;
+    sizetitle = minDimension * 0.07;
     sizeaxis = minDimension * 0.05; 
 
     // Título del gráfico

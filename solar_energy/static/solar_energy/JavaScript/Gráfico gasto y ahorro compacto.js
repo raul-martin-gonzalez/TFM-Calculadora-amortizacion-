@@ -71,7 +71,7 @@ function gasto_ahorro(container, props){
       .text("Sin placas vs. Con placas") // Título del gráfico
     .merge(titulo)
       .attr("x", (props.width - margin.left - margin.right) / 2)
-      .attr("y", margin.top / 2)
+      .attr("y", -margin.top / 4)
       .attr("text-anchor", "middle")
       .style("font-size", sizetitle + 'px');
       

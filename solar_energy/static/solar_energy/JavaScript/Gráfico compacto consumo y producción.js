@@ -73,7 +73,7 @@ function myResponsiveComponent1(container, props){
       .text("Consumo vs. Producción") // Título del gráfico
     .merge(titulo)
       .attr("x", (props.width - margin.left - margin.right) / 2)
-      .attr("y", margin.top / 2)
+      .attr("y", -margin.top / 4)
       .attr("text-anchor", "middle")
       .style("font-size", sizetitle + 'px');
       

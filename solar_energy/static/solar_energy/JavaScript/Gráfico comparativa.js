@@ -195,7 +195,7 @@ let legend = g.selectAll('.legend').data([null]);
 legend = legend.enter().append("g")
     .attr("class", "legend")
   .merge(legend)
-    .attr("transform", "translate(" + (margin.left/2) + "," + (margin.top)/2 + ")");
+    .attr("transform", "translate(" + (margin.left/3) + "," + (margin.top)/2 + ")");
 
 // Datos de la leyenda
 const legendData = [
@@ -209,7 +209,7 @@ const legendData = [
 // Configuración de la leyenda
 const numCols = 2;
 const itemHeight = 20;
-const itemWidth = 105;
+const itemWidth = 100;
 const padding = 5;
 
 legendData.forEach((d, i) => {
@@ -246,7 +246,7 @@ legendData.forEach((d, i) => {
     })
     .attr('dy', '0.35em')
     .style('text-anchor', 'start')
-    .style('font-size', '14px')
+    .style('font-size', '13px')
     .text(d => d.nombre);
 });
 
