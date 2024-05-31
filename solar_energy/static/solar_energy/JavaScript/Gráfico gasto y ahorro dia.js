@@ -5,6 +5,8 @@ var datos_json = contenedor_datos.getAttribute('data-consumo');
 var datos_consumo = JSON.parse(datos_json)
 // Función para filtrar los datos
 
+
+
 function filtrarDatosPorDia(diaSeleccionado) {
     return datos_consumo.filter(function(d) {
         return d.Fecha === diaSeleccionado;
@@ -15,7 +17,7 @@ function filtrarDatosPorDia(diaSeleccionado) {
 function grafico_gasto_ahorro_dia(container, props) {
     const dateInput = document.getElementById('dateInput').value;
     var datosFiltrados = filtrarDatosPorDia(dateInput);
-
+    
     var fechas = [];
     var gasto_no_placas = [];
     var ahorros = [];
@@ -140,8 +142,9 @@ function grafico_gasto_ahorro_dia(container, props) {
 
 
     // Agregar la línea horizontal en el valor 0 del eje y
+    
     g.append("line")
-    .attr("class", "zero-line")
+    .attr("class", "zeroline")
     .attr("x1", 0)
     .attr("x2", width)
     .attr("y1", yScale(0))

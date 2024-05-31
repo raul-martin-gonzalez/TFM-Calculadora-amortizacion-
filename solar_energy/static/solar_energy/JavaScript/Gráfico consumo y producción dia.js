@@ -16,6 +16,7 @@ function grafico_consumo_produccion_dia(container, props) {
     const dateInput = document.getElementById('dateInput').value;
     var datosFiltrados = filtrarDatosPorDia(dateInput);
 
+    print(datosFiltrados)
     var fechas = [];
     var consumos = [];
     var produccion = [];

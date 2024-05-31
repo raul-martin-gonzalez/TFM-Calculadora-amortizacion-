@@ -44,6 +44,7 @@ def calculadora_amortizacion(request):
         consumo_compacto, consumo_mes = datos_consumo_compacto(df1, datos_radiacion, datos_produccion, datos_precio_luz)
         consumo_compacto_json = consumo_compacto.to_json(orient='records')
         consumo_mes_json = consumo_mes.to_json(orient='records')
+        
         datos_tabla = consumo_compacto.to_dict(orient='records')
         pd.options.display.width = 500
 

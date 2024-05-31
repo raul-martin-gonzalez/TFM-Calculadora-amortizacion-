@@ -28,6 +28,16 @@ def datos_consumo_compacto(df, radiacion, produccion, precio):
     df['Hora'] = hora
     df['Precio_luz'] = precio['value']/1000
     df['Precio_excedente'] = precio['Precio_energia_excedentaria']/1000
+    
+    
+    if df['Fecha'][0]=='01-01-2023':
+        f=[]
+        for i in df['Fecha']:
+            p=i.split('-')
+            f.append(f'{p[2]}-{p[1]}-{p[0]}')
+        df['Fecha']=f
+    else:
+        pass
 
     df_final = df.reindex(['FECHA-HORA', 'Día', 'Mes', 'Año', 'Fecha', 'Hora', 'CONSUMO Wh', 'Precio_luz', 'Precio_excedente'], axis=1)
     #print(df_final.head(30))

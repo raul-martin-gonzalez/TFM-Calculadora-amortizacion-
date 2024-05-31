@@ -125,17 +125,27 @@ function grafico_comparativa(container, props) {
         .domain(d3.range(años.length))
         .range([0, width])
         .padding(0.2)
-        .paddingOuter(-0.4);
+        //.paddingOuter(-0.4);
     const xAxis = d3.axisBottom(xScale)
         
     let xAxisG = g.selectAll('.x-axis1').data([null]);
     xAxisG = xAxisG.enter().append('g')
         .attr('class', 'x-axis1')
     .merge(xAxisG)
-        .attr('transform', `translate(0, ${yScale(0)})`);
+        .attr('transform', `translate(0, ${height})`);
     xAxisG.call(xAxis)
         .style('font-size', fontSize + 'px');
 
+
+    g.append("line")
+    .attr("class", "zeroline")
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("y1", yScale(0))
+    .attr("y2", yScale(0))
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray", "5,5");
 
     // Agregar línea al gráfico
     let grafico = g.selectAll('.linea1').data(dcaso0);
